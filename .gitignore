@@ -1,0 +1,8 @@
+node_modules/
+*.session*
+*.cookie*
+*.cookies*
+.env
+.env.*
+browser-profile/
+*.log

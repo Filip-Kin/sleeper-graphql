@@ -1,0 +1,2596 @@
+# Sleeper GraphQL schema, reconstructed from live introspection of https://sleeper.app/graphql
+# Introspection date: 2026-09-09. Server: Absinthe (Elixir). Introspection meta-fields are snake_case.
+
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+}
+
+"""JSON"""
+scalar Json
+
+"""Lists"""
+scalar List
+
+"""Localized JSON"""
+scalar LocalizedJson
+
+"""Localized map"""
+scalar LocalizedMap
+
+"""Localized string"""
+scalar LocalizedString
+
+"""Map / Dictionary"""
+scalar Map
+
+scalar MapWithSnowflakeKey
+
+scalar MapWithSnowflakeKeyValue
+
+"""Sets"""
+scalar Set
+
+"""Snowflake ID"""
+scalar Snowflake
+
+scalar SnowflakeList
+
+scalar SnowflakeSet
+
+type Achievement {
+  created: Int
+  description: String
+  name: String
+  user_id: Snowflake
+}
+
+type Activity {
+  created: Int
+  metadata: Json
+  type: String
+  type_id: Snowflake
+  user_id: Snowflake
+}
+
+type BlockedUser {
+  blocked_avatar: String
+  blocked_display_name: String
+  blocked_is_bot: Boolean
+  blocked_timestamp: Int
+  blocked_user_id: Snowflake
+  user_id: Snowflake
+}
+
+type CcDepositResult {
+  url: String
+}
+
+type Channel {
+  avatar: String
+  channel_id: Snowflake
+  description: String
+  display_order: Int
+  is_favorite: Boolean
+  is_private: Boolean
+  last_message_id: Snowflake
+  last_message_read_id: Snowflake
+  last_topic_id: Snowflake
+  last_topic_read_id: Snowflake
+  max_message_length: Int
+  max_topic_length: Int
+  message_create_amount: Int
+  message_create_ban: Int
+  message_create_delay: Int
+  message_create_period: Int
+  metadata: Map
+  my_last_message_ts: Int
+  my_last_reaction_ts: Int
+  my_last_topic_ts: Int
+  name: String
+  new_user_message_delay: Int
+  new_user_topic_delay: Int
+  owner: Snowflake
+  parent_id: Snowflake
+  reaction_create_delay: Int
+  require_email: Boolean
+  require_phone: Boolean
+  sharding_enabled: Boolean
+  sort_order: String
+  sport: String
+  topic_create_delay: Int
+  topic_necro_hours: Int
+  total_members: Int
+}
+
+type ChannelBan {
+  avatar: String
+  channel_id: Snowflake
+  display_name: String
+  expires: Int
+  is_bot: Boolean
+  user_id: Snowflake
+}
+
+type ChannelTag {
+  channel_id: Snowflake
+  color: String
+  description: String
+  display_order: Int
+  is_default: Boolean
+  name: String
+  tag: String
+}
+
+type ChannelUser {
+  avatar: String
+  channel_id: Snowflake
+  display_name: String
+  is_bot: Boolean
+  role_ids: Set
+  user_id: Snowflake
+}
+
+type Code {
+  code: String
+  expires_at: Int
+  metadata: Map
+  type: String
+  type_id: Snowflake
+  uses_remaining: Int
+}
+
+type Company {
+  avatar: String
+  company_id: Snowflake
+  description: String
+  name: String
+  shortcode: String
+}
+
+type CompanyUser {
+  avatar: String
+  company_id: Snowflake
+  display_name: String
+  is_bot: Boolean
+  is_owner: Boolean
+  real_name: String
+  user_id: Snowflake
+}
+
+type ContractOrder {
+  ask_price: Float
+  ask_quantity: Int
+  created_at: Int
+  currency_type: String
+  display_data: Map
+  event_id: Snowflake
+  expected_provider_fee: Float
+  expected_sleeper_fee: Float
+  expected_total_fee: Float
+  fee_function_id: String
+  fee_params: Map
+  fulfilled_order: Json
+  market_id: Snowflake
+  market_ticker: String
+  order_id: Snowflake
+  order_type: String
+  provider_fee: Float
+  side: String
+  sleeper_fee: Float
+  status: String
+  """The single total commission actually charged for this order (provider + sleeper). Null until the order fills."""
+  total_fee: Float
+  user_id: Snowflake
+}
+
+type CurrenciesAndTransactions {
+  currencies: Map
+  currencies_cftc: Map
+  currencies_league_dues: Map
+  currencies_non_promo: Map
+  non_withdrawable: Map
+  non_withdrawable_non_promo: Map
+  non_withdrawable_promo_only: Map
+  transactions: [CurrencyTransaction]
+  uncleared: Map
+  uncleared_transactions: [CurrencyTransaction]
+  withdrawable: Map
+}
+
+type CurrencyTransaction {
+  completed: Int
+  created: Int
+  currency_amount: Float
+  currency_type: String
+  display_data: Json
+  reference_action: String
+  reference_id: String
+  reference_type: String
+  status: String
+  user_id: Snowflake
+  wallet_type: String
+}
+
+type DailyDraftContest {
+  contest_id: Snowflake
+  contest_type: String
+  """Keys: ["draft_id"]"""
+  metadata: Map
+  pool_ids: SnowflakeSet
+  """<team_id, rank>"""
+  results: MapWithSnowflakeKey
+  sport: String
+  """["pending", "complete", "canceled"]"""
+  status: String
+  team_ids: SnowflakeSet
+}
+
+type DailyDraftTeam {
+  draft_id: Snowflake
+  period: String
+  players: List
+  """<player_id, fantasy_points>"""
+  points: Map
+  sport: String
+  """["pending_scoring", "scored"]"""
+  status: String
+  team_id: Snowflake
+  total_points: Float
+  total_projections: Float
+  user_id: Snowflake
+}
+
+type DerbyUser {
+  created: Int
+  derby_id: String
+  metadata: Map
+  user_id: Snowflake
+}
+
+type DiscoveredContact {
+  email: String
+  name: String
+  num_associates: Int
+  num_mutual_associates: Int
+  phone: String
+  user: User
+}
+
+type Dm {
+  deleted_at: Snowflake
+  dm_id: Snowflake
+  dm_type: String
+  hidden_at: Snowflake
+  last_author_avatar: String
+  last_author_display_name: String
+  last_author_id: Snowflake
+  last_author_is_bot: Boolean
+  last_author_real_name: String
+  last_message_attachment: Json
+  last_message_id: Snowflake
+  last_message_text: String
+  last_message_text_map: Json
+  last_message_time: Int
+  last_pinned_message_id: Snowflake
+  last_read_id: Snowflake
+  member_can_invite: Boolean
+  recent_users: Json
+  title: String
+}
+
+type DmUser {
+  allow_pn: Boolean
+  avatar: String
+  display_name: String
+  dm_id: Snowflake
+  is_bot: Boolean
+  is_owner: Boolean
+  mention_pn: Boolean
+  pending: Boolean
+  real_name: String
+  user_id: Snowflake
+}
+
+type Draft {
+  created: Int
+  creators: SnowflakeList
+  draft_id: Snowflake
+  draft_order: MapWithSnowflakeKey
+  last_message_id: Snowflake
+  last_message_time: Int
+  last_picked: Int
+  league_id: Snowflake
+  metadata: Map
+  season: String
+  season_type: String
+  settings: Map
+  sport: String
+  start_time: Int
+  status: String
+  type: String
+}
+
+type DraftOffer {
+  amount: Int
+  draft_id: Snowflake
+  metadata: Map
+  pick_no: Int
+  player_id: String
+  slot: Int
+  time: Int
+  user_id: Snowflake
+}
+
+type DraftPick {
+  draft_id: Snowflake
+  is_keeper: Boolean
+  metadata: Map
+  pick_no: Int
+  picked_by: Snowflake
+  player_id: String
+  reactions: Map
+}
+
+type Event {
+  bucket: Int
+  description: String
+  end_time: Int
+  event_id: Snowflake
+  name: String
+  parent_id: Snowflake
+  parent_type: String
+  start_time: Int
+  started: Boolean
+}
+
+type File {
+  channel_id: Snowflake
+  created: Int
+  file_id: Snowflake
+  filename: String
+  filesize: Int
+  height: Int
+  mimetype: String
+  parent_id: Snowflake
+  parent_type: String
+  url: String
+  url_original: String
+  user_id: Snowflake
+  width: Int
+}
+
+type Friend {
+  friend_avatar: String
+  friend_display_name: String
+  friend_id: Snowflake
+  friend_is_bot: Boolean
+  friend_username: String
+  last_contacted: Int
+}
+
+type FullRewardTracker {
+  additional_goals: [Int]
+  amount: String
+  created: Int
+  expires_at: Int
+  full_logs: [RewardActionLog]
+  goal: Int
+  graded_status: String
+  granted_reward_info: Json
+  metadata: Json
+  num_logs: Int
+  owner_id: String
+  owner_type: String
+  pending_logs: [RewardActionLog]
+  reward_tracker_id: Snowflake
+  reward_type: String
+  version: String
+}
+
+type InteractiveBankDepositResult {
+  ip: String
+  url: String
+}
+
+type IpLocation {
+  ip_city: String
+  ip_country_code: String
+  ip_region_codes: [String]
+}
+
+type Item {
+  archetype: String
+  created: Int
+  item_id: Snowflake
+  item_type_id: String
+}
+
+type ItemType {
+  archetype: String
+  config: Map
+  id: String
+  name: String
+  type: String
+}
+
+type League {
+  avatar: String
+  company_id: Snowflake
+  display_order: Int
+  draft_id: Snowflake
+  group_id: Snowflake
+  is_full: Boolean
+  last_author_avatar: String
+  last_author_display_name: String
+  last_author_id: Snowflake
+  last_author_is_bot: Boolean
+  last_message_attachment: Json
+  last_message_id: Snowflake
+  last_message_text: String
+  last_message_text_map: Json
+  last_message_time: Int
+  last_pinned_message_id: Snowflake
+  last_read_id: Snowflake
+  last_transaction_id: Snowflake
+  league_id: Snowflake
+  matchup_legs: List
+  metadata: Map
+  name: String
+  previous_league_id: Snowflake
+  roster_positions: List
+  scoring_settings: Map
+  season: String
+  season_type: String
+  settings: Map
+  sport: String
+  status: String
+  total_rosters: Int
+  user_playoff_status: UserPlayoffStatus
+}
+
+type LeagueDueUsersWithHash {
+  hash: String
+  league_dues_users: [LeagueDuesUser]
+}
+
+type LeagueDuesConfig {
+  """Tracker dues amount in cents (unused for sleeper_safe leagues)"""
+  amount: Int
+  balance: Float
+  created_at: Int
+  created_by: Snowflake
+  currency_type: String
+  """Product mode: tracker or sleeper_safe"""
+  dues_type: String
+  enabled: Boolean
+  league_id: Snowflake
+  notes: String
+  notes_text_map: Json
+  payment_deadline: Int
+  reminders_enabled: Boolean
+  season_dues: Map
+  settings: Map
+  status: String
+  updated_at: Int
+  updated_by: Snowflake
+}
+
+type LeagueDuesPaymentMethod {
+  base_fee: Float
+  confirmed: Boolean
+  display_data: Map
+  fee_percentage: Float
+  label: String
+  name: String
+  provider: String
+  status: String
+  type: String
+}
+
+type LeagueDuesPaymentResult {
+  amount: Float
+  checkout_url: String
+  dues_amount: Float
+  dues_user: LeagueDuesUser
+  fee_amount: Float
+  season: String
+  status: String
+  total_amount: Float
+  transaction_ref: String
+  wallet_amount: Float
+}
+
+type LeagueDuesPayoutConfig {
+  config_hash: String
+  created_at: Int
+  created_by: Snowflake
+  league_id: Snowflake
+  metadata: Json
+  payout_config_id: Snowflake
+  payout_criteria: String
+  payout_interval: String
+  payout_structure: Map
+  review_window_hours: Int
+  status: String
+  updated_at: Int
+  updated_by: Snowflake
+  voting_threshold: Float
+}
+
+type LeagueDuesPayoutPlan {
+  created_at: Int
+  execute_bucket: Int
+  league_id: Snowflake
+  metadata: Json
+  notes: String
+  notes_text_map: Json
+  payees: MapWithSnowflakeKeyValue
+  payout_config_id: Snowflake
+  payout_plan_id: String
+  payout_structure: Map
+  poll_id: Snowflake
+  """["created", "approved", "rejected", "paid", "canceled", "payout_blocked"]"""
+  status: String
+  updated_at: Int
+}
+
+type LeagueDuesPayoutPoll {
+  attachment: String
+  message_id: Snowflake
+  parent_id: Snowflake
+  text: String
+}
+
+type LeagueDuesRosterOwed {
+  owner_id: Snowflake
+  paid_status: String
+  roster_id: Int
+  seasons: [LeagueDuesSeasonPaid]
+}
+
+type LeagueDuesSeasonPaid {
+  amount_owed: Float
+  amount_paid: Float
+  season: String
+  season_dues: Float
+}
+
+type LeagueDuesTransaction {
+  created_at: Int
+  currency_amount: Float
+  currency_type: String
+  league_id: Snowflake
+  metadata: Json
+  paid_for_user_id: Snowflake
+  payout_config_id: Snowflake
+  payout_plan_id: String
+  reference_id: String
+  status: String
+  transaction_type: String
+  user_id: Snowflake
+}
+
+type LeagueDuesUser {
+  created_at: Int
+  created_by: Snowflake
+  paid_status: String
+  updated_at: Int
+  updated_by: Snowflake
+  user_id: Snowflake
+}
+
+type LeagueEventLog {
+  created: Int
+  data: Json
+  event_type: String
+  league_id: Snowflake
+  log_id: Snowflake
+}
+
+type LeagueGroup {
+  avatar: String
+  channel_id: Snowflake
+  company_id: Snowflake
+  description: String
+  draft_settings: Map
+  group_id: Snowflake
+  group_settings: Map
+  metadata: Map
+  name: String
+  num_leagues: Int
+  proj_earnings: Int
+  roster_positions: List
+  scoring_settings: Map
+  season: String
+  season_type: String
+  settings: Map
+  sport: String
+  users_in_leagues: Int
+  users_in_queue: Int
+}
+
+type LeagueHistoryImport {
+  archive_fingerprint: String
+  archive_s3_key: String
+  archive_sha256: String
+  archive_url: String
+  created: Int
+  draft_id: Snowflake
+  error: String
+  import_id: Snowflake
+  league: League
+  league_id: Snowflake
+  provider: String
+  provider_league_id: String
+  schema_version: Int
+  status: String
+  summary: Map
+  updated_at: Int
+  user_id: Snowflake
+}
+
+type LeagueManualHistory {
+  import_data: Map
+  league_notes: List
+  season: String
+  season_standings: List
+  top_standings: Map
+}
+
+type LeagueNote {
+  league_id: Snowflake
+  text: String
+  text_map: Json
+  type: String
+  updated_at: Int
+}
+
+type LeaguePlayer {
+  league_id: Snowflake
+  metadata: Map
+  player_id: String
+  settings: Map
+}
+
+type LeagueTransaction {
+  adds: Map
+  consenter_ids: List
+  created: Int
+  creator: Snowflake
+  draft_picks: List
+  drops: Map
+  league_id: Snowflake
+  leg: Int
+  metadata: Map
+  player_map: Map
+  roster_ids: List
+  settings: Map
+  status: String
+  status_updated: Int
+  transaction_id: Snowflake
+  type: String
+  waiver_budget: List
+}
+
+type LeagueUser {
+  avatar: String
+  display_name: String
+  is_bot: Boolean
+  is_owner: Boolean
+  league_id: Snowflake
+  metadata: Map
+  settings: Map
+  user_id: Snowflake
+}
+
+type Line {
+  closed: Int
+  created: Int
+  game_id: String
+  game_status: String
+  line_id: Snowflake
+  line_type: String
+  market_type: String
+  metadata: Map
+  outcome: String
+  outcome_type: String
+  outcome_value: Float
+  payout_multiplier: String
+  pick_count: Int
+  score: Score
+  season: String
+  season_type: String
+  sport: String
+  status: String
+  subject: Map
+  subject_id: String
+  subject_pos_rank: String
+  subject_position: String
+  subject_team: String
+  subject_type: String
+  valid_close_duration_seconds: Int
+  wager_type: String
+}
+
+type LinePromotion {
+  amount_limit: Float
+  eligible_targets: [String]
+  expires_at: Int
+  game_id: String
+  min_required_parlay_multiplier: String
+  season: String
+  season_type: String
+  sport: String
+  subject_id: String
+  subject_type: String
+  type: String
+  wager_type: String
+}
+
+type MatchmakingLeagueActivity {
+  since: Int
+  totals: Map
+}
+
+type MatchmakingLobby {
+  commitment: Float
+  current_players: Int
+  custom_tags: Set
+  display_icon: String
+  game: String
+  game_bucket: String
+  is_open: Boolean
+  join_type: Int
+  lobby_id: Snowflake
+  max_players: Int
+  message: String
+  metadata: Map
+  owner_id: Snowflake
+  tags: Map
+  title: String
+}
+
+type MatchmakingUser {
+  avatar: String
+  commitment_high: Float
+  commitment_low: Float
+  custom_tags: Set
+  display_name: String
+  game: String
+  game_bucket: String
+  is_open: Boolean
+  message: String
+  metadata: Map
+  player_count: Set
+  tags: Map
+  user_id: Snowflake
+  username: String
+}
+
+type MatchupLeg {
+  bans: Map
+  custom_points: Float
+  league_id: Snowflake
+  leg: Int
+  matchup_id: Int
+  max_points: Float
+  picks: Map
+  player_map: Map
+  players: Set
+  points: Float
+  proj_points: Float
+  roster_id: Int
+  round: Int
+  starters: List
+  starters_games: Map
+  subs: Map
+}
+
+type Mention {
+  message_id: Snowflake
+  metadata: Json
+  parent_id: Snowflake
+  unread: Boolean
+  user_id: Snowflake
+}
+
+type Message {
+  attachment: Json
+  author_achievement: String
+  author_avatar: String
+  author_display_name: String
+  author_id: Snowflake
+  author_is_bot: Boolean
+  author_real_name: String
+  author_role_id: Snowflake
+  client_context: String
+  client_id: String
+  created: Int
+  edited: Int
+  message_id: Snowflake
+  parent_id: Snowflake
+  parent_type: String
+  pinned: Boolean
+  reactions: Map
+  shard_max: Int
+  shard_min: Int
+  text: LocalizedString
+  text_map: Json
+  user_reactions: List
+}
+
+type Metadata {
+  created: Int
+  data: Map
+  key: String
+  last_updated: Int
+  type: String
+}
+
+type OnboardingReward {
+  create_league: Boolean
+  demo_draft: Boolean
+  invite_friends: Boolean
+  learn: Boolean
+  mock_draft: Boolean
+}
+
+type Parlay {
+  created: Int
+  currency_amount: Float
+  currency_type: String
+  display_data: Map
+  graded_at: Int
+  graded_multiplier: String
+  graded_payout: String
+  graded_payout_boost: String
+  graded_profit_boost: String
+  league_id: Snowflake
+  legs: [ParlayLeg]
+  max_multiplier: String
+  max_payout: String
+  max_payout_boost: String
+  max_profit_boost: String
+  multiplier: Float
+  parlay_id: Snowflake
+  possible_multipliers: PossibleMultipliers
+  status: String
+  team_pick: ContractOrder
+  user_id: Snowflake
+}
+
+type ParlayLeg {
+  graded_at: Int
+  line: Line
+  line_id: Snowflake
+  parlay_leg_id: Snowflake
+  status: String
+}
+
+type Passkey {
+  authenticator_name: String
+  created: Int
+  passkey_id: String
+  user_id: Snowflake
+}
+
+type PaymentMethod {
+  confirmed: Boolean
+  display_data: Map
+  label: String
+  name: String
+  provider: String
+  status: String
+  type: String
+}
+
+type PickemLeg {
+  league_id: Snowflake
+  leg_id: String
+  leg_scoring_result: Map
+  metadata: Map
+  num_expected_picks: Int
+  picks: Map
+  roster_id: Int
+  status: String
+  tiebreaker: Map
+}
+
+type Play {
+  date: String
+  game_id: String
+  metadata: Json
+  play_id: String
+  play_stats: [PlayStat]
+  provider: String
+  season: String
+  season_type: String
+  sequence: Int
+  sport: String
+  time: Int
+  updated_at: Int
+  week: Int
+}
+
+type PlayStat {
+  player: Map
+  player_id: String
+  stats: Map
+  stats_agg: Map
+}
+
+type Player {
+  active: Boolean
+  age: Int
+  birth_city: String
+  birth_country: String
+  birth_date: String
+  birth_state: String
+  college: String
+  depth_chart_order: Int
+  depth_chart_position: String
+  dl_trading_id: Int
+  espn_id: Int
+  fantasy_data_id: Int
+  fantasy_positions: Set
+  first_name: String
+  hashtag: String
+  height: String
+  high_school: String
+  injury_body_part: String
+  injury_notes: String
+  injury_start_date: String
+  injury_status: String
+  last_name: String
+  metadata: Map
+  number: Int
+  player_id: String
+  position: String
+  practice_description: String
+  practice_participation: String
+  rotowire_id: Int
+  rotoworld_id: Int
+  sport: String
+  sportradar_id: String
+  stats_id: Int
+  status: String
+  swish_id: Int
+  team: String
+  team_abbr: String
+  team_changed_at: Int
+  weight: String
+  yahoo_id: Int
+  years_exp: Int
+}
+
+type PlayerNews {
+  metadata: LocalizedMap
+  player_id: String
+  published: Int
+  source: String
+  source_key: String
+  sport: String
+}
+
+type Poll {
+  choices: Map
+  choices_order: List
+  closes_at: Int
+  metadata: Map
+  poll_id: Snowflake
+  prompt: String
+  user_votes: List
+  votes: Map
+}
+
+type PollVote {
+  avatar: String
+  choice_id: String
+  name: String
+  user_id: Snowflake
+}
+
+type Position {
+  buy_fees: Float
+  created_at: Int
+  currency_type: String
+  display_data: Map
+  event_id: Snowflake
+  market_id: Snowflake
+  market_ticker: String
+  net_cost: Float
+  net_quantity: Int
+  net_quantity_fp: String
+  realized_cost: Float
+  realized_profit: Float
+  realized_quantity: Int
+  realized_quantity_fp: String
+  sell_fees: Float
+  side: String
+  updated_at: Int
+}
+
+type PossibleMultipliers {
+  lost0: String
+  lost1: String
+  lost2: String
+  team_pick_lost: String
+}
+
+type Preference {
+  name: String
+  type_id: String
+  value: String
+}
+
+type Promo {
+  amount: Float
+  available_at: Int
+  created: Int
+  eligible_targets: [String]
+  expires_at: Int
+  metadata: Map
+  promo_id: String
+  """["protected_pick"]"""
+  type: String
+  user_id: Snowflake
+}
+
+type PromoClaim {
+  created: Int
+  promo_id: String
+  """["protected_pick, deposit_match, give_get, give_get_referred, affiliate, affiliate_referred"]"""
+  promo_type: String
+  user_id: Snowflake
+}
+
+type PromoPage {
+  gifted_promos: [SharedPromo]
+  global_line_promos: [LinePromotion]
+  global_promos: [Promo]
+  personal_promos: [Promo]
+}
+
+type Purchase {
+  created: String
+  product_id: String
+  receipt_id: String
+  store_type: String
+}
+
+type Reaction {
+  message_id: Snowflake
+  parent_id: Snowflake
+  reaction: String
+  reactor_avatar: String
+  reactor_display_name: String
+  reactor_id: Snowflake
+  reactor_is_bot: Boolean
+}
+
+type ReadReceipt {
+  last_read_id: Snowflake
+  parent_id: Snowflake
+  parent_type: String
+  user_id: Snowflake
+}
+
+type Request {
+  created: Int
+  request_type: String
+  requestee_avatar: Snowflake
+  requestee_display_name: String
+  requestee_id: Snowflake
+  requestee_is_bot: Boolean
+  requester_avatar: Snowflake
+  requester_display_name: String
+  requester_id: Snowflake
+  requester_is_bot: Boolean
+  type_description: String
+  type_id: Snowflake
+  type_metadata: Json
+  type_name: String
+}
+
+type ResponsibleGamingLimit {
+  amount: Int
+  created: Int
+  expiration: Int
+  frequency: String
+}
+
+type RewardActionLog {
+  action: String
+  created: Int
+  full_parlay: Parlay
+  line: Line
+  metadata: Json
+  parlay_currency_amount: Float
+  parlay_currency_type: String
+  reward_action_log_id: Snowflake
+  reward_tracker_id: Snowflake
+  reward_type: String
+  user_id: Snowflake
+}
+
+type RewardTrackerInfo {
+  created: Int
+  expires_at: Int
+  reward_tracker_id: Snowflake
+}
+
+type Role {
+  is_admin: Boolean
+  is_default: Boolean
+  name: String
+  permissions: List
+  role_id: Snowflake
+  role_order: Int
+  type_id: Snowflake
+}
+
+type RootMutationType {
+  """accept legal agreement of a given type"""
+  accept_legal_agreement(agreement_type: String!): Boolean
+  """Accept a request"""
+  accept_request(type_id: Snowflake!, requester_id: Snowflake!, request_type: String!): Boolean
+  """Accept Trade"""
+  accept_trade(leg: Int!, league_id: Snowflake!, transaction_id: Snowflake!): LeagueTransaction
+  """Mark a derby prize's winnings modal as seen/dismissed"""
+  acknowledge_derby_prize(derby_id: String!): UserDerbyPrize
+  """Add bundles to User's async bundles"""
+  add_async_bundles(bundle_names: [String]): [String]
+  """Add channel tag to topic"""
+  add_channel_tag(topic_id: Snowflake!, channel_id: Snowflake!, channel_tag: String!): Topic
+  add_favorite_team(sport: String!, team: String!): Boolean
+  add_league_group_admin(company_id: Snowflake!, group_id: Snowflake!): String
+  """Add league player note, can use this to overwrite as well"""
+  add_league_player_note(player_id: String!, note: String!, league_id: Snowflake!): LeaguePlayer
+  """Put player on trade block"""
+  add_league_player_trade_block(player_id: String!, league_id: Snowflake!): LeaguePlayer
+  """add ban to matchup leg"""
+  add_matchup_leg_ban(position: String!, round: Int!, leg: Int!, league_id: Snowflake!, hero_id: String!, roster_id: Int!): MatchupLeg
+  """add pick to matchup leg"""
+  add_matchup_leg_pick(position: String!, round: Int!, leg: Int!, league_id: Snowflake!, hero_id: String!, roster_id: Int!): MatchupLeg
+  """Add player tag to topic"""
+  add_player_tag(topic_id: Snowflake!, channel_id: Snowflake!, sport: String!, player_id: String!): Topic
+  """Add a role to a channel, group, or league"""
+  add_role(name: String!, type: String!, type_id: Snowflake!): Role
+  """Add permission to role"""
+  add_role_permission(type: String!, type_id: Snowflake!, role_id: Snowflake!, permission: String!): Boolean
+  aeropay_deposit(location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput!, currency_amount: Float!, promos: [String]): CurrencyTransaction
+  aeropay_withdraw(location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput!, currency_amount: Float!): CurrencyTransaction
+  applepay_deposit(location: Location!, currency_type: String!, wallet_type: String, currency_amount: Float!, promos: [String], theme: String, force_card_type: String): CcDepositResult
+  """Assign Role to a user"""
+  assign_role(type: String!, user_id: Snowflake!, type_id: Snowflake!, role_id: Snowflake!): Boolean
+  """Draft Pick Trading - Assign Pick - commissioner only"""
+  assign_roster_draft_pick(league_id: Snowflake!, draft_pick: String!): RosterDraftPick
+  """Ban a user from a channel"""
+  ban_channel_user(channel_id: Snowflake!, expire_days: Int = 7, ban_user_id: Snowflake!): ChannelBan
+  bank_withdrawal(location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput!, currency_amount: Float!, client_ip: String): CurrencyTransaction
+  """Batch upsert league dues users"""
+  batch_upsert_league_dues_users(league_id: Snowflake!, league_dues_users: [LeagueDuesUserInput]!, expected_hash: String!): LeagueDueUsersWithHash
+  """Block a user"""
+  block_user(blocked_user_id: Snowflake!): BlockedUser
+  cancel_parlay(parlay_id: Snowflake!): Parlay
+  """Cancel an outbound request"""
+  cancel_request(type_id: Snowflake!, requestee_id: Snowflake!, request_type: String!): Boolean
+  """Cancel Verification"""
+  cancel_verification: Boolean
+  """Cancel a waiver claim"""
+  cancel_waiver_claim(leg: Int!, league_id: Snowflake!, transaction_id: Snowflake!): LeagueTransaction
+  cc_deposit(location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput, currency_amount: Float!, promos: [String], theme: String, force_card_type: String): CcDepositResult
+  cc_withdrawal(location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput!, currency_amount: Float!): CurrencyTransaction
+  """Change DM title"""
+  change_dm_title(title: String!, dm_id: Snowflake!): Dm
+  """Change message text"""
+  change_message_text(text: String!, message_id: Snowflake!, parent_id: Snowflake!): Message
+  """Change Password"""
+  change_password(password: String!, old_password: String): Boolean
+  """Change Password"""
+  change_password2(password: String!, logout_all: Boolean, old_password: String): User
+  """Change topic title"""
+  change_topic_title(title: String!, topic_id: Snowflake!, channel_id: Snowflake!): Topic
+  """Favorite a channel"""
+  channel_update_favorite(channel_id: Snowflake!, is_favorite: Boolean!): Channel
+  """Chop a roster, for chopped leagues only"""
+  chop_roster(league_id: Snowflake!, roster_id: Int!): Roster
+  """Claim a draft slot"""
+  claim_draft_slot(slot: Int!, sport: String!, draft_id: Snowflake!): Draft
+  claim_gift(message_id: Snowflake!, parent_id: Snowflake!, item_id: Snowflake!): Item
+  claim_promo(location: Location, league_id: Snowflake, promo_id: String!): Boolean
+  claim_promo_v2(promo_id: String!): Promo
+  """Claim a shared promo"""
+  claim_shared_promo(share_id: Snowflake!, gifter_user_id: Snowflake!): Promo
+  clear_notifications(notification_types: [String]): Boolean
+  clear_pending_withdrawal(reference_type: String!, reference_action: String!, reference_id: String!): CurrencyTransaction
+  clear_responsible_gaming_limit(identifier: String!, limit_scope: String): Boolean
+  clear_tournament_picks(league_id: Snowflake!, roster_id: Int!): Boolean
+  """Clear all unread DMs"""
+  clear_unread_dms: Boolean
+  """Clear all unread mentions"""
+  clear_unread_mentions: Boolean
+  """Clone Draft"""
+  clone_draft(sport: String!, draft_id: Snowflake!): Draft
+  """Clone a league to chopped league"""
+  clone_to_chopped(league_id: Snowflake!, copy_draft_results: Boolean): League
+  """Clone tournament picks for roster"""
+  clone_tournament_picks(league_id: Snowflake!, dest_league_id: Snowflake, src_roster_id: Int!, dest_roster_id: Int!): [TournamentPick]
+  """Configure Divisions"""
+  configure_divisions(league_id: Snowflake!, roster_ids: [Int], roster_divisions: [Int]): [Roster]
+  confirm_aeropay_user(code: String!, wallet_type: String): [PaymentMethod]
+  confirm_payment_methods(national_id: String!): Boolean
+  consent_to_electronic_delivery(consent: Boolean!): Boolean
+  """Continue a league"""
+  continue_league(type: Int!, league_id: Snowflake!, owner_ids: [Snowflake]): League
+  """Convert a league's tracker dues config to a fresh SleeperSafe draft"""
+  convert_league_dues_to_sleeper_safe(league_id: Snowflake!): LeagueDuesConfig
+  """Convert a league's SleeperSafe config to the simple dues tracker, creating the tracker config if none exists yet. Draft or disabled configs only, before any payments have been made."""
+  convert_league_dues_to_tracker(amount: Int!, league_id: Snowflake!): LeagueDuesConfig
+  """Create a new channel"""
+  create_channel(name: String!, description: String, sort_order: String!, is_private: Boolean!, sport: String!, parent_id: Snowflake, sharding_enabled: Boolean!, avatar_url: String, default_moderator_role: Boolean): Channel
+  """Create a new channel tag"""
+  create_channel_tag(name: String!, tag: String!, description: String!, color: String!, channel_id: Snowflake!, is_default: Boolean!, sound: String! = "alert"): ChannelTag
+  create_company(name: String!, description: String, shortcode: String!, avatar_url: String): Company
+  """Create a DM"""
+  create_dm(title: String, members: [Snowflake], attachment_type: String, client_id: String, dm_type: String!, client_context: String, message_text: String, attachment_id: Snowflake, k_attachment_data: [String], v_attachment_data: [String]): Dm
+  """Create a Draft"""
+  create_draft(type: String!, sport: String!, season_type: String!, season: String!, league_id: Snowflake, k_metadata: [String], v_metadata: [String], k_settings: [String], v_settings: [Int], reset_league_draft: Boolean): Draft
+  create_event(name: String!, description: String, start_time: Int, parent_type: String!, end_time: Int, parent_id: Snowflake!): Event
+  """Create a file"""
+  create_file(filename: String!, width: Int, parent_type: String!, url: String!, channel_id: Snowflake, parent_id: Snowflake!, filesize: Int!, height: Int, mimetype: String, url_original: String): File
+  """Create Invite Link"""
+  create_invite_link(code: String, type: String!, expires_at: Int, type_id: Snowflake!, uses_remaining: Int): Code
+  """Create League"""
+  create_league(name: String!, sport: String!, season_type: String!, season: String!, draft_id: Snowflake, roster_positions: [String], avatar_url: String, k_metadata: [String], v_metadata: [String], k_settings: [String], v_settings: [Int], k_scoring_settings: [String], v_scoring_settings: [Float]): League
+  create_league_group(name: String!, description: String, company_id: Snowflake!, sport: String!, season_type: String!, season: String!, roster_positions: [String], avatar_url: String, k_metadata: [String], v_metadata: [String], k_settings: [String], v_settings: [Int], k_scoring_settings: [String], v_scoring_settings: [Float], k_group_settings: [String], v_group_settings: [Int], k_draft_settings: [String], v_draft_settings: [Int]): LeagueGroup
+  create_league_group_league(name: String!, group_id: Snowflake!, avatar_url: String, draft_time: Int!): League
+  """Create a message.  Options include channel_id, shard_min, & shard_max for cases if it's a topical message"""
+  create_message(text: String, parent_type: String!, attachment_type: String, client_id: String, channel_id: Snowflake, parent_id: Snowflake!, role_id: Snowflake, author_achievement: String, pinned: Boolean, shard_max: Int, shard_min: Int, client_context: String, attachment_id: Snowflake, k_attachment_data: [String], v_attachment_data: [String]): Message
+  create_parlay(type: String, location: Location!, event_id: Snowflake, market_id: Snowflake, currency_type: String!, expected_provider_fee: String, expected_sleeper_fee: String, expected_total_fee: String, ask_price: String, side: String, currency_amount: Float!, line_ids: [Snowflake], league_id: Snowflake, promo_id: String, correlation_config_ids: Map, entry_name: String, payout_version: String, quest_id: String, boost_adjustment_version: String, client_metadata: Map, client_possible_multipliers: ClientPossibleMultipliers, vs_group: String, prototype_parlay_id: Snowflake, client_max_payout: String, pv: Int, league_public: Boolean!, auto_accept_changes: Boolean): Parlay
+  create_passkey_finalize(public_key_credential: PublicKeyCredentialInput!): Passkey
+  create_passkey_start: Map
+  """Create a user with display name and avatar_url"""
+  create_pending_user(real_name: String!, email_or_phone: String!): User
+  """Create a poll"""
+  create_poll(prompt: String, choices: [String], k_metadata: [String], v_metadata: [String]): Poll
+  create_post(text: String, attachment: Map, attachment_type: String, channel_tags: [String], player_tags: [String], attachment_id: Snowflake, sport_tags: [String], team_tags: [String], mod_post: Boolean): Topic
+  """React to a message"""
+  create_reaction(message_id: Snowflake!, parent_id: Snowflake!, reaction: String!, enable_multi: Boolean): Reaction
+  """Create a roster in league (for bracket mania)"""
+  create_roster(league_id: Snowflake!): Roster
+  """Create a shared promo"""
+  create_shared_promo(promo_id: String!, giftee_user_id: Snowflake): SharedPromo
+  """Create supplemental draft"""
+  create_supplemental_draft(league_id: Snowflake!): League
+  """Create a topic"""
+  create_topic(title: String!, attachment_type: String, client_id: String, channel_tags: [String], channel_id: Snowflake!, attachment_id: Snowflake, k_attachment_data: [String], v_attachment_data: [String]): Topic
+  create_topic_reaction(topic_id: Snowflake!, channel_id: Snowflake!, reaction: String!): TopicReaction
+  """Create subscriptions on behalf of others"""
+  create_topic_subscriptions(topic_id: Snowflake!, channel_id: Snowflake!, user_ids: [Snowflake]): Boolean
+  """Create a tutorial message, in a DM / League / Draft / etc..."""
+  create_tutorial_message(text: String, parent_type: String!, attachment_type: String, parent_id: Snowflake!, attachment_id: Snowflake, k_attachment_data: [String], v_attachment_data: [String], bot_id: Snowflake!): Message
+  """Create a user roster"""
+  create_user_roster(sport: String!, season_type: String!, season: String!, players: [String], roster_positions: [String], starters: [String], k_metadata: [String], v_metadata: [String], k_settings: [String], v_settings: [Int], k_scoring_settings: [String], v_scoring_settings: [Float]): UserRoster
+  """Create a phone code"""
+  create_verification_code(version: String, captcha: String, email_or_phone: String!): Map
+  """Decline a request"""
+  decline_request(type_id: Snowflake!, requester_id: Snowflake!, request_type: String!): Boolean
+  """Delete bundles to User's async bundles"""
+  delete_async_bundles(bundle_names: [String]): [String]
+  """Delete a channel"""
+  delete_channel(channel_id: Snowflake!): Channel
+  """Delete a channel tag"""
+  delete_channel_tag(tag: String!, channel_id: Snowflake!): ChannelTag
+  delete_company(company_id: Snowflake!): Company
+  """Delete DM"""
+  delete_dm(dm_id: Snowflake!): Dm
+  """Delete Draft"""
+  delete_draft(sport: String!, draft_id: Snowflake!): Draft
+  delete_event(parent_type: String!, event_id: Snowflake!, parent_id: Snowflake!): Event
+  """Delete a league"""
+  delete_league(league_id: Snowflake!): League
+  delete_league_group(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!): LeagueGroup
+  """Delete manual league history"""
+  delete_league_manual_history(season: String!, league_id: Snowflake!): [LeagueManualHistory]
+  """Delete message"""
+  delete_message(message_id: Snowflake!, parent_id: Snowflake!): Boolean
+  delete_passkey(passkey_id: String!): Boolean
+  """Remove a reaction from a message"""
+  delete_reaction(message_id: Snowflake!, parent_id: Snowflake!, reaction: String!): Reaction
+  """Delete a roster in league (for bracket mania)"""
+  delete_roster(league_id: Snowflake!, roster_id: Int!): Boolean
+  """Delete topic"""
+  delete_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  delete_topic_reaction(topic_id: Snowflake!, channel_id: Snowflake!, reaction: String!): TopicReaction
+  """Delete"""
+  delete_user(password: String, email_or_phone_or_username: String!): User
+  """Delete a user roster"""
+  delete_user_roster(sport: String!, season_type: String!, season: String!, roster_id: Snowflake!): UserRoster
+  deposit(type: String, location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput, currency_amount: Float!, promos: [String], theme: String, force_card_type: String): CcDepositResult
+  """Disable a league's dues config, creating the config row if none exists yet. Draft or unconfigured leagues only, before any payments have been made. Re-enable by saving the config back to draft."""
+  disable_league_dues_config(league_id: Snowflake!): LeagueDuesConfig
+  """Send DMs to unpaid league members"""
+  dm_unpaid_league_dues(league_id: Snowflake!): String
+  """Signals this user is not afk"""
+  draft_clear_afk_rounds(sport: String!, draft_id: Snowflake!): Draft
+  """CPU Pick Player for Draft"""
+  draft_cpu_pick_player(sport: String!, draft_id: Snowflake!, pick_no: Int!): DraftPick
+  """Ends the current draft phase (sets timer to 0)"""
+  draft_end_phase(phase: String!, sport: String!, draft_id: Snowflake!): Draft
+  draft_force_auction_pick(slot: Int!, amount: Int, sport: String!, player_id: String!, draft_id: Snowflake!, pick_no: Int, is_keeper: Boolean): DraftPick
+  """select player but don't immediately nominate"""
+  draft_hover_player(slot: Int!, sport: String!, player_id: String!, draft_id: Snowflake!, pick_no: Int): Boolean
+  """make a draft offer to a player"""
+  draft_make_offer(slot: Int!, amount: Int!, sport: String!, player_id: String!, draft_id: Snowflake!, pick_no: Int): DraftOffer
+  """nominate a player for drafting"""
+  draft_nominate_player(slot: Int!, amount: Int!, sport: String!, player_id: String!, draft_id: Snowflake!, pick_no: Int): DraftOffer
+  """Signals this user does not wish to make any more offers to a player"""
+  draft_pass_offering(sport: String!, draft_id: Snowflake!): Draft
+  """User Pick a player for draft"""
+  draft_pick_player(sport: String!, player_id: String!, draft_id: Snowflake!, pick_no: Int!): DraftPick
+  """Remove draft pick"""
+  draft_remove_pick(sport: String!, draft_id: Snowflake!, pick_no: Int!): DraftPick
+  """Remove user from draft"""
+  draft_remove_user(user_id: Snowflake!, sport: String!, draft_id: Snowflake!): Draft
+  """Signals this user would like to make offers to a player"""
+  draft_resume_offering(sport: String!, draft_id: Snowflake!): Draft
+  """Set a keeper on a draft board"""
+  draft_set_keeper(sport: String!, player_id: String!, draft_id: Snowflake!, pick_no: Int!): DraftPick
+  """override the current nominator in an auction draft"""
+  draft_set_nominator(slot: Int!, sport: String!, draft_id: Snowflake!): Draft
+  enter_daily_draft(group: String, location: Location!, sport: String!): UserPool
+  enter_daily_draft_bonuses(location: Location!, sport: String!, source_pool_id: Snowflake!, bonuses: Map!): [UserPool]
+  enter_event_queue(priority: Int, type: String!, event_id: Snowflake, type_id: Snowflake!): Boolean
+  """Force cancel any transaction - commissioners only"""
+  force_cancel_transaction(leg: Int!, league_id: Snowflake!, transaction_id: Snowflake!): LeagueTransaction
+  """Force update matchup leg"""
+  force_update_matchup_leg(round: Int!, leg: Int!, league_id: Snowflake!, roster_id: Int!, starters: [String], starters_games: Map, subs: Map): MatchupLeg
+  get_aeropay_aggregator_credentials(wallet_type: String): Map
+  gift_item_to_league(item_id: Snowflake!, receiver_league_id: Snowflake!): Item
+  gift_item_to_user(item_id: Snowflake!, receiver_user_id: Snowflake!): Item
+  """Hide DM"""
+  hide_dm(dm_id: Snowflake!): Dm
+  """Hide topic"""
+  hide_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  """Import draft to league"""
+  import_draft(draft_id: Snowflake!, league_id: Snowflake!): League
+  """Import external league history into a new Sleeper league"""
+  import_league_history(provider: String!, archive_json: String!): LeagueHistoryImport
+  import_league_users(user_ids: [Snowflake], src_league_id: Snowflake!, dest_league_id: Snowflake!): Boolean
+  interac_set_security_question(payment_method: PaymentMethodInput!, security_question: String!, security_answer: String!): PaymentMethod
+  interactive_bank_deposit(location: Location!, currency_type: String!, wallet_type: String, payment_method: PaymentMethodInput, currency_amount: Float!, client_ip: String, promos: [String], return_url: String!): InteractiveBankDepositResult
+  invite_friends(contact_infos: [ContactInfo], my_name: String!): Boolean
+  """Invite to an existing DM"""
+  invite_to_dm(members: [Snowflake], dm_id: Snowflake!): Dm
+  """Join a channel"""
+  join_channel(channel_id: Snowflake!, display_order: Int): Channel
+  """Join multiple channels"""
+  join_channels(channel_ids: [Snowflake]): [Channel]
+  join_derby(derby_id: String!): DerbyUser
+  """Join a draft"""
+  join_draft(sport: String!, draft_id: Snowflake!): Draft
+  join_matchmaking_league(lobby_id: Snowflake!, game_bucket: String!, game: String!): League
+  """Join a public league"""
+  join_public_league(sport: String!, season_type: String!, season: String!): League
+  """Add / Drop Player"""
+  league_create_transaction(type: String!, league_id: Snowflake!, v_drops: [Int], k_drops: [String], v_adds: [Int], k_adds: [String]): LeagueTransaction
+  """Deposit league dues via an eligible payment method"""
+  league_dues_deposit(location: Location!, season: String!, payment_method: PaymentMethodInput!, league_id: Snowflake!, target_user_ids: [Snowflake], use_league_dues_balance: Boolean): LeagueDuesPaymentResult
+  """Commissioner remove user from league"""
+  league_remove_user(user_id: Snowflake!, league_id: Snowflake!): League
+  league_sync_create_league(type: Int, cookie: String, provider: String!, roster_id: Int, provider_league_id: String!, s2: String, swid: String): League
+  league_sync_get_mask(provider: String!, login_value: String!): Map
+  league_sync_login(password: String!, provider: String!, login_value: String!): Map
+  league_sync_send_recovery_code(type: String, mask: String, cookie: String, marker: String, display_name: String, provider: String!, acrumb: String, crumb: String, session_index: String, masked_value: String, email_or_phone: String): Map
+  league_sync_use_recovery_code(code: String, type: String, mask: String, cookie: String, session_id: String, api_key: String, display_name: String, provider: String!, reference_id: String, acrumb: String, crumb: String, session_index: String, att_remaining: String): Map
+  """Update league avatar"""
+  league_update_avatar(league_id: Snowflake!, avatar_url: String!): League
+  """League update custom standings"""
+  league_update_custom_standings(league_id: Snowflake!, v_rank_map: [Int], k_rank_map: [Int]): [Roster]
+  """Update my leagues display order (for left panel)"""
+  league_update_display_order(v_display_order: [Int], k_display_order: [Snowflake]): Boolean
+  """League update metadata"""
+  league_update_metadata(league_id: Snowflake!, k_metadata: [String], v_metadata: [String]): League
+  """Update league name"""
+  league_update_name(name: String!, league_id: Snowflake!): League
+  """Update league note"""
+  league_update_note(text: String, league_id: Snowflake!): LeagueNote
+  """Update league commissioners"""
+  league_update_owners(league_id: Snowflake!, owner_ids: [Snowflake]): [LeagueUser]
+  """Update roster positions"""
+  league_update_roster_positions(league_id: Snowflake!, roster_positions: [String]): League
+  """League update scoring_settings"""
+  league_update_scoring_settings(league_id: Snowflake!, k_scoring_settings: [String], v_scoring_settings: [Float]): League
+  """Update settings"""
+  league_update_settings(league_id: Snowflake!, k_settings: [String], v_settings: [Int]): League
+  """Leave a channel"""
+  leave_channel(channel_id: Snowflake!): Channel
+  """Leave multiple channels"""
+  leave_channels(channel_ids: [Snowflake]): [Channel]
+  leave_derby(derby_id: String!): Boolean
+  """Leave a DM"""
+  leave_dm(dm_id: Snowflake!): Dm
+  """Leave a draft"""
+  leave_draft(sport: String!, draft_id: Snowflake!): Draft
+  leave_event_queue(type: String!, type_id: Snowflake!): Boolean
+  """Leave a league"""
+  leave_league(league_id: Snowflake!): League
+  """Like a player"""
+  like_league_player(player_id: String!, league_id: Snowflake!): LeaguePlayer
+  link_aeropay_account(password: String!, user_id: String!, wallet_type: String): PaymentMethod
+  login_via_passkey_start: Map
+  make_pickem_pick(pick: InputPickemPick!, league_id: Snowflake!, roster_id: Int!, leg_id: String!, pick_to_replace: InputPickemPick): PickemLeg
+  """Legacy alias for convert_league_dues_to_sleeper_safe"""
+  migrate_league_dues_v1(league_id: Snowflake!): LeagueDuesConfig @deprecated(reason: "Use convert_league_dues_to_sleeper_safe.")
+  """Commissioner migrates league note from previous league"""
+  migrate_league_note(league_id: Snowflake!): LeagueNote
+  """Commissioner migrates pinned messages from previous league"""
+  migrate_pinned_messages(league_id: Snowflake!): Int
+  offline_withdrawal(reason: String!, location: Location!, email: String!, currency_type: String!, currency_amount: Float!, paper_check_info: OfflineWithdrawalPaperCheckInfo, ach_info: OfflineWithdrawalAchInfo): CurrencyTransaction
+  order_contract(event_id: Snowflake!, market_id: Snowflake!, currency_type: String, expected_provider_fee: String, expected_sleeper_fee: String, expected_total_fee: String, ask_quantity: Int!, order_type: String!, side: String, slippage_buffer_cents: Int, ask_price_dollars: String, ask_price_cents: Int): ContractOrder
+  """Override playoff brackets"""
+  override_league_playoff_brackets(league_id: Snowflake!, bracket_overrides: [PlayoffMatchOverride], loser_bracket_overrides: [PlayoffMatchOverride]): Map
+  """Pay league dues using eligible wallet balance"""
+  pay_league_dues(season: String!, league_id: Snowflake!, target_user_ids: [Snowflake]): LeagueDuesPaymentResult
+  pickem_commish_revive(league_id: Snowflake!, roster_id: Int!): Roster
+  """Pin message"""
+  pin_message(message_id: Snowflake!, parent_id: Snowflake!): Boolean
+  """Pin topic"""
+  pin_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  """Add a poll choice"""
+  poll_add_choice(type: String, choice: String!, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!): Poll
+  """Edit a poll choice"""
+  poll_edit_choice(type: String, choice: String!, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!, choice_id: String!): Poll
+  """Edit poll prompt"""
+  poll_edit_prompt(type: String, prompt: String!, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!): Poll
+  """Remove a poll choice"""
+  poll_remove_choice(type: String, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!, choice_id: String!): Poll
+  """Set poll closes at"""
+  poll_set_closes_at(type: String, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!, closes_at: Int!): Poll
+  """Unvote on a poll"""
+  poll_unvote(type: String, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!, choice_id: String!): Poll
+  """Vote on a poll"""
+  poll_vote(type: String, type_id: Snowflake, parent_id: Snowflake, poll_id: Snowflake!, choice_id: String!): Poll
+  """Process a trade - commissioners only"""
+  process_transaction(leg: Int!, league_id: Snowflake!, transaction_id: Snowflake!): LeagueTransaction
+  """Propose payout changes for all configs in an interval"""
+  propose_league_dues_payout_changes(league_id: Snowflake!, payout_interval: String!, changes: [LeagueDuesPayoutChangeInput]!): [LeagueDuesPayoutPlan]
+  """Propose a trade"""
+  propose_trade(expires_at: Int, league_id: Snowflake!, draft_picks: [String], waiver_budget: [String], reject_transaction_id: Snowflake, reject_transaction_leg: Int, v_drops: [Int], k_drops: [String], v_adds: [Int], k_adds: [String]): LeagueTransaction
+  purchase_gift_for_league(item_type_id: String!, receiver_league_id: Snowflake!): Item
+  purchase_gift_for_user(item_type_id: String!, receiver_user_id: Snowflake!): Item
+  purchase_item_with_cookies(item_type_id: String!): Item
+  push_notify_join_voice_lounge(league_id: Snowflake!): Boolean
+  """Push topic"""
+  push_topic(tag: String!, topic_id: Snowflake!, channel_id: Snowflake!): Topic
+  put_user_on_autopick(draft_id: Snowflake!): Boolean
+  """Randomize Draft Order"""
+  randomize_draft_order(sport: String!, draft_id: Snowflake!): Draft
+  """Randomize opponents (commish only)"""
+  randomize_opponents(league_id: Snowflake!): [MatchupLeg]
+  """Reaction (emoji) to draft pick"""
+  react_to_draft_pick(sport: String!, draft_id: Snowflake!, pick_no: Int!, reaction: String): DraftPick
+  """Recalculate scoring (commish only)"""
+  recalculate_matchup_scoring(round: Int!, league_id: Snowflake!): Boolean
+  redeem_receipt_for_cookies(product_id: String!, store_type: String!, proof_of_purchase: String!): Int
+  register_aeropay_user(wallet_type: String): Map
+  """Reject Trade"""
+  reject_trade(leg: Int!, league_id: Snowflake!, transaction_id: Snowflake!): LeagueTransaction
+  """Remove channel tag to topic"""
+  remove_channel_tag(topic_id: Snowflake!, channel_id: Snowflake!, channel_tag: String!): Topic
+  """Remove co-owner"""
+  remove_co_owner(league_id: Snowflake!, co_owner_id: Snowflake!): Roster
+  remove_dismissals(type: String!): Map
+  """Remove Divisions"""
+  remove_divisions(league_id: Snowflake!): [Roster]
+  remove_favorite_team(sport: String!, team: String!): Boolean
+  remove_friend(friend_id: Snowflake!): Boolean
+  """Remove league player note"""
+  remove_league_player_note(player_id: String!, league_id: Snowflake!): LeaguePlayer
+  """Remove league player from trade block"""
+  remove_league_player_trade_block(player_id: String!, league_id: Snowflake!): LeaguePlayer
+  """remove ban from matchup leg"""
+  remove_matchup_leg_ban(position: String!, round: Int!, leg: Int!, league_id: Snowflake!, roster_id: Int!): MatchupLeg
+  """remove pick from matchup leg"""
+  remove_matchup_leg_pick(position: String!, round: Int!, leg: Int!, league_id: Snowflake!, roster_id: Int!): MatchupLeg
+  remove_payment_method(payment_method: PaymentMethodInput!): Boolean
+  remove_pickem_pick(pick: InputPickemPick!, league_id: Snowflake!, roster_id: Int!, leg_id: String!): PickemLeg
+  """Remove player tag to topic"""
+  remove_player_tag(topic_id: Snowflake!, channel_id: Snowflake!, sport: String!, player_id: String!): Topic
+  """Remove a role from a channel / league"""
+  remove_role(type: String!, type_id: Snowflake!, role_id: Snowflake!): Role
+  """Remove permission from role"""
+  remove_role_permission(type: String!, type_id: Snowflake!, role_id: Snowflake!, permission: String!): Boolean
+  remove_user_from_autopick(draft_id: Snowflake!): Boolean
+  """Re-order channel tags"""
+  reorder_channel_tags(tags: [String], channel_id: Snowflake!): [String]
+  """Re-order user channels"""
+  reorder_channels(channel_ids: [Snowflake]): [Channel]
+  """Re-order roles for a type_id"""
+  reorder_roles(type: String!, type_id: Snowflake!, role_ids: [Snowflake]): Boolean
+  report_user(user_id: Snowflake!): Boolean
+  """Request Reset Password"""
+  request_password_reset(captcha: String, email_or_phone: String!): Boolean
+  """Request Verification"""
+  request_verification(version: String, captcha: String, email_or_phone: String!): Boolean
+  rescore_pickem_league(league_id: Snowflake!, clear_roster_metadata: Boolean, make_random_picks: Boolean): String
+  """Reset Password"""
+  reset_password(code: String!, password: String!): Boolean
+  """Reset Password With Code"""
+  reset_password_with_code(code: String!, password: String!, email_or_phone: String!): Boolean
+  """Reset to startup Draft"""
+  reset_to_startup_draft(league_id: Snowflake!): League
+  """Revoke Role from user"""
+  revoke_role(type: String!, user_id: Snowflake!, type_id: Snowflake!, role_id: Snowflake!): Boolean
+  reward_onboarding(platform: String!, step: String!, sport: String!): OnboardingReward
+  """Roster change owner"""
+  roster_change_owner(league_id: Snowflake!, roster_id: Int!, owner_id: Snowflake): Roster
+  """Roster set keepers"""
+  roster_set_keepers(keepers: [String], league_id: Snowflake!, roster_id: Int!): Roster
+  """Roster update metadata"""
+  roster_update_metadata(league_id: Snowflake!, roster_id: Int!, k_metadata: [String], v_metadata: [String]): Roster
+  """Roster update injured reserve"""
+  roster_update_reserve(league_id: Snowflake!, roster_id: Int!, reserve: [String]): Roster
+  """Roster update settings (commissioner only)"""
+  roster_update_settings(league_id: Snowflake!, roster_id: Int!, k_settings: [String], v_settings: [Int]): Roster
+  """Roster update starters"""
+  roster_update_starters(league_id: Snowflake!, roster_id: Int!, starters: [String]): Roster
+  """Roster update taxi"""
+  roster_update_taxi(force: Boolean, league_id: Snowflake!, roster_id: Int!, taxi: [String]): Roster
+  rotate_purchasable_mascots: [ItemType]
+  save_cftc_questionnaire(has_futures_experience: Boolean, income: String, net_worth: String, occupation: String): Boolean
+  """Save all league dues payout configs used during initial setup"""
+  save_league_dues_payout_configs(league_id: Snowflake!, configs: [LeagueDuesPayoutConfigInput]!): [LeagueDuesPayoutConfig]
+  """Save tournament pick"""
+  save_tournament_pick(round: Int!, team: String, game_id: String!, league_id: Snowflake!, roster_id: Int!, team_bracket: String, team_seed: Int): [TournamentPick]
+  """Send download link"""
+  send_download_link(phone: String!): Boolean
+  """Send dues reminder"""
+  send_league_dues_reminder(league_id: Snowflake!): String
+  send_matchmaking_request(type_id: Snowflake!, lobby_id: Snowflake!, game_bucket: String!, game: String!, requestee_id: Snowflake!, request_type: String!): Request
+  """Request a user to be a friend, join group, channel, or league. Types are league, dm_group, dm_single, friend, and channel"""
+  send_request(type_id: Snowflake!, requestee_id: Snowflake!, request_type: String!): Request
+  set_contest_entry_name(parlay_id: Snowflake!, entry_name: String): Boolean
+  set_favorite_teams(sport: String!, teams: [String]): Boolean
+  """Set FTU promo offer"""
+  set_ftu_offer(offer: String!): String
+  set_league_mascot(leg: Int!, league_id: Snowflake!, mascot_item_id: Snowflake, mascot_item_type_id: String, emotion: String): LeagueUser
+  set_league_mascot_emotion(leg: Int!, league_id: Snowflake!, emotion: String!): LeagueUser
+  set_league_mascot_message(message: String!, leg: Int!, league_id: Snowflake!, emotion: String): LeagueUser
+  set_league_matchmaking(message: String, is_open: Boolean, league_id: Snowflake!, commitment: Float, custom_tags: [String], join_type: Int): MatchmakingLobby
+  set_pickem_tiebreaker(league_id: Snowflake!, roster_id: Int!, tiebreaker: InputPickemTiebreaker!, leg_id: String!): PickemLeg
+  set_responsible_gaming_limit(identifier: String!, amount: Int!, frequency: String!, limit_scope: String): ResponsibleGamingLimit
+  """Sets the user's self exclusion period. nil means indefinitely"""
+  set_user_exclusion(limit_scope: String, num_days: Int): ResponsibleGamingLimit
+  set_user_league_matchmaking_preferences(message: String, tags: Map, is_open: Boolean, sport: String!, season_type: String!, season: String!, custom_tags: [String], commitment_high: Float, commitment_low: Float, player_count: [Int]): MatchmakingUser
+  """Shadow topic"""
+  shadow_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  """Send a message signal"""
+  signal(item: String!, parent_type: String!, item_count: Int = 1, channel_id: Snowflake, parent_id: Snowflake!): Boolean
+  """Skip startup draft"""
+  skip_startup_draft(league_id: Snowflake!): League
+  socure_documents_request(city: String!, first_name: String!, last_name: String!, region: String!, date_of_birth: String!, country_code: String!, address1: String!, address2: String, postal_code: String!): String
+  """Submit waiver claim"""
+  submit_waiver_claim(league_id: Snowflake!, k_metadata: [String], v_metadata: [String], k_settings: [String], v_settings: [Int], v_drops: [Int], k_drops: [String], v_adds: [Int], k_adds: [String]): LeagueTransaction
+  suggest_matchmaking_user(league_id: Snowflake!, game_bucket: String!, game: String!, requestee_id: Snowflake!): Message
+  sync_aeropay_accounts(wallet_type: String): [PaymentMethod]
+  """Sync user app information"""
+  sync_app_information(app_instance_id: String!, app_type: String!): String
+  """Sync push notification badge counts"""
+  sync_badge_count(count: Int!): String
+  """Sync onesignal push tags"""
+  sync_push_tags(k_tags: [String], push_id: String!, v_tags: [String]): Boolean
+  """Sync push token"""
+  sync_push_token(token: String!, device_id: String, token_type: String!, bundle_id: String, has_permission: Boolean!): String
+  tag_braze_user(type: String): Boolean
+  tip_message_author(message_id: Snowflake!, parent_id: Snowflake!, currency_type: String!, currency_amount: Float!): UserTipTransactionLog
+  tip_topic_author(topic_id: Snowflake!, channel_id: Snowflake!, currency_type: String!, currency_amount: Float!): UserTipTransactionLog
+  tip_user(source: String, currency_type: String!, currency_amount: Float!, receiver_user_id: Snowflake!): UserTipTransactionLog
+  """Track Channel Join, temporary workaround for not enough trending channels"""
+  track_channel_join(channel_id: Snowflake!): Boolean
+  track_score_view(sport: String!, season_type: String!, season: String!, game_id: String!): Boolean
+  """User is typing"""
+  typing(parent_type: String!, channel_id: Snowflake, parent_id: Snowflake!): Boolean
+  """Draft Pick Trading - Unassign Pick - commissioner only"""
+  unassign_roster_draft_pick(round: Int!, season: String!, league_id: Snowflake!, roster_id: Int!): RosterDraftPick
+  """Unban a user from a channel"""
+  unban_channel_user(channel_id: Snowflake!, unban_user_id: Snowflake!): ChannelBan
+  """Unblock a user"""
+  unblock_user(blocked_user_id: Snowflake!): BlockedUser
+  """Unhide topic"""
+  unhide_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  """Unlike a player"""
+  unlike_league_player(player_id: String!, league_id: Snowflake!): LeaguePlayer
+  """Unlock a chopped roster, for chopped leagues only, this does not add players back to the roster"""
+  unlock_chopped_roster(league_id: Snowflake!, roster_id: Int!): Roster
+  """Unpin message"""
+  unpin_message(message_id: Snowflake!, parent_id: Snowflake!): Boolean
+  """Unpin topic"""
+  unpin_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  """Unshadow topic"""
+  unshadow_topic(topic_id: Snowflake!, channel_id: Snowflake!): Boolean
+  """Unsubscribe from topic"""
+  unsubscribe_from_topic(topic_id: Snowflake!): Boolean
+  """Unwatch all players"""
+  unwatch_all_players(sport: String!, season_type: String, season: String): Boolean
+  """Unwatch player"""
+  unwatch_player(sport: String!, season_type: String, season: String, player_id: String!): Boolean
+  """Update a channel"""
+  update_channel(name: String!, description: String, sort_order: String!, is_private: Boolean!, channel_id: Snowflake!, sport: String!, max_message_length: Int, max_topic_length: Int, message_create_amount: Int, message_create_ban: Int, message_create_delay: Int, message_create_period: Int, reaction_create_delay: Int, sharding_enabled: Boolean!, topic_create_delay: Int, avatar_url: String): Channel
+  """Update an existing channel tag"""
+  update_channel_tag(name: String!, tag: String!, description: String!, color: String!, channel_id: Snowflake!, is_default: Boolean!, sound: String! = "alert"): ChannelTag
+  """Update a list of channel tags"""
+  update_channel_tags(topic_id: Snowflake!, channel_tags: [String], channel_id: Snowflake!): Topic
+  update_company(name: String!, description: String!, company_id: Snowflake!, shortcode: String!, avatar_url: String): Company
+  update_dismissals(type: String!, value: String!): Map
+  """Update a DM member"""
+  update_dm_member(dm_id: Snowflake!, allow_pn: Boolean!, mention_pn: Boolean!): DmUser
+  """Update Draft Metadata"""
+  update_draft_metadata(sport: String!, draft_id: Snowflake!, k_metadata: [String], v_metadata: [String]): Draft
+  """Update Draft Order"""
+  update_draft_order(sport: String!, draft_id: Snowflake!, draft_order: [Snowflake]): Draft
+  """Update the draft queue"""
+  update_draft_queue(draft_id: Snowflake!, player_ids: [String]): [String]
+  """Update Draft Settings"""
+  update_draft_settings(sport: String!, draft_id: Snowflake!, k_settings: [String], v_settings: [Int]): Draft
+  """Update draft proposed start time"""
+  update_draft_start_time(start_time: Int!, sport: String!, draft_id: Snowflake!): Draft
+  """Update Draft Status (start/pause/finish draft etc)"""
+  update_draft_status(status: String!, sport: String!, draft_id: Snowflake!): Draft
+  """Update Draft Type (snake/linear/auction)"""
+  update_draft_type(type: String!, sport: String!, draft_id: Snowflake!): Draft
+  update_league_group(name: String!, description: String, company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, avatar_url: String): LeagueGroup
+  update_league_group_draft_settings(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, k_draft_settings: [String], v_draft_settings: [Int]): LeagueGroup
+  update_league_group_group_settings(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, k_group_settings: [String], v_group_settings: [Int]): LeagueGroup
+  update_league_group_metadata(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, k_metadata: [String], v_metadata: [String]): LeagueGroup
+  update_league_group_roster_positions(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, roster_positions: [String]): LeagueGroup
+  update_league_group_scoring_settings(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, k_scoring_settings: [String], v_scoring_settings: [Float]): LeagueGroup
+  update_league_group_settings(company_id: Snowflake!, sport: String!, season_type: String!, season: String!, group_id: Snowflake!, k_settings: [String], v_settings: [Int]): LeagueGroup
+  """Update a League User Settings, for push notifications, etc"""
+  update_league_user_metadata(league_id: Snowflake!, k_metadata: [String], v_metadata: [String]): LeagueUser
+  """Update matchup leg"""
+  update_matchup_leg(round: Int!, leg: Int!, league_id: Snowflake!, roster_id: Int!, starters: [String], starters_games: Map, subs: Map): MatchupLeg
+  """Update custom matchup points (commish only)"""
+  update_matchup_leg_custom_points(round: Int!, leg: Int!, league_id: Snowflake!, roster_id: Int!, custom_points: Float): Boolean
+  """Update opponents (commish only)"""
+  update_opponents(round: Int!, leg: Int!, league_id: Snowflake!, roster_ids: [Int], matchup_ids: [Int]): [MatchupLeg]
+  update_parlay(league_id: Snowflake, parlay_id: Snowflake!): Parlay
+  """Update preference value for user_id, type_id, and name"""
+  update_preferences(values: [String], names: [String], type_id: Snowflake!): Boolean
+  update_referral_promo_code(promo_id: String!): String
+  """Update squad bank grading mode"""
+  update_squad_bank_grading_mode(league_id: Snowflake!, grading_mode: String!): UpdateSquadBankGradingModeResult
+  update_squad_waitlist_eligibility(location: Location!): Boolean
+  """Set tiebreaker field for a tournament bracket"""
+  update_tiebreaker(league_id: Snowflake!, roster_id: Int!, tiebreaker: Int, Tiebreaker: Int): Roster
+  """Update topic title_map with a URL without changing the title text. Useful for attaching Twitter/X video links. Pass url to add/update, pass nil/empty to remove."""
+  update_topic_title_map(key: String!, url: String, topic_id: Snowflake!, channel_id: Snowflake!): Topic
+  """Update user's avatar_url"""
+  update_user_avatar_url(avatar_url: String!): User
+  """Update user's display name"""
+  update_user_display_name(display_name: String!): User
+  """Update Draft Setting"""
+  update_user_draft_settings(draft_id: Snowflake!, allow_pn: Boolean!, mention_pn: Boolean!): UserDraft
+  """Update the flairs for a user returns the updated user"""
+  update_user_flairs(user_flair: [UserFlair]): User
+  """Update user's real name"""
+  update_user_real_name(real_name: String!): User
+  """Update user roster metadata"""
+  update_user_roster_metadata(sport: String!, season_type: String!, season: String!, roster_id: Snowflake!, k_metadata: [String], v_metadata: [String]): UserRoster
+  """Update user roster players"""
+  update_user_roster_players(sport: String!, season_type: String!, season: String!, players: [String], roster_id: Snowflake!, starters: [String]): UserRoster
+  """Update user roster positions"""
+  update_user_roster_positions(sport: String!, season_type: String!, season: String!, roster_positions: [String], roster_id: Snowflake!): UserRoster
+  """Update user roster scoring settings"""
+  update_user_roster_scoring_settings(sport: String!, season_type: String!, season: String!, roster_id: Snowflake!, k_scoring_settings: [String], v_scoring_settings: [Float]): UserRoster
+  """Update user roster settings"""
+  update_user_roster_settings(sport: String!, season_type: String!, season: String!, roster_id: Snowflake!, k_settings: [String], v_settings: [Int]): UserRoster
+  """Update user's summoner name"""
+  update_user_summoner_name(region: String!, summoner_name: String!): User
+  """Update a waiver claim"""
+  update_waiver_claim(leg: Int!, league_id: Snowflake!, transaction_id: Snowflake!, k_metadata: [String], v_metadata: [String], k_settings: [String], v_settings: [Int]): LeagueTransaction
+  """Upsert league dues config"""
+  upsert_league_dues_config(enabled: Boolean, status: String, amount: Int, settings: Map, currency_type: String, league_id: Snowflake!, notes: String, reminders_enabled: Boolean, payment_deadline: Int, season_dues: Map): LeagueDuesConfig
+  """Create or update manual league history"""
+  upsert_league_manual_history(season: String!, league_id: Snowflake!, league_notes: List, season_standings: List, top_standings: Map): [LeagueManualHistory]
+  """Use Code"""
+  use_code(code: String, ref_code: String): Code
+  use_item(item_id: Snowflake!): Item
+  """Create a user with display name and avatar_url"""
+  user(code: String, password: String, real_name: String, display_name: String, promo: String, avatar_url: String, captcha: String, email_or_phone: String, ref_code: String, impact_click_id: String): User
+  verify_bank_payment_and_withdraw(location: Location!, currency_type: String!, currency_amount: Float!, client_ip: String!, return_url: String!): Map
+  verify_bank_payment_method(location: Location!, client_ip: String!, return_url: String!): Boolean
+  verify_change_info(location: Location, city: String!, first_name: String!, last_name: String!, region: String!, date_of_birth: String!, country_code: String!, address1: String!, address2: String, national_id: String, postal_code: String!, kyc_session_id: String): UserProfile
+  verify_confirm_one_click(location: Location, kyc_session_id: String): UserProfile
+  """Verify contact update by code"""
+  verify_contact_update(code: String!): User
+  verify_start_one_click(birthdate: String, ssn4: String): UserProfile
+  verify_update_one_click(birthdate: String, ssn4: String): UserProfile
+  verify_user_profile(location: Location, city: String!, first_name: String!, last_name: String!, region: String!, date_of_birth: String!, country_code: String!, address1: String!, address2: String, national_id: String, postal_code: String!, document_uuid: String, docv_transaction_token: String, kyc_session_id: String): UserProfile
+  """Verify phone code"""
+  verify_verification_code(code: String!, email_or_phone: String!): Boolean
+  """Watch player"""
+  watch_player(sport: String!, season_type: String, season: String, player_id: String!): Player
+  """Withdraw from league dues wallet"""
+  withdraw_league_dues(location: Location!, currency_type: String!, payment_method: PaymentMethodInput!, currency_amount: Float!, device_id: String, client_ip: String): CurrencyTransaction
+}
+
+type RootQueryType {
+  """List achievements"""
+  achievements(user_id: Snowflake!): [Achievement]
+  """Get active channel topics with limit"""
+  active_channel_topics(limit: Int, channel_id: Snowflake!): [Topic]
+  """Get active quests for user"""
+  active_quests: [UserQuest]
+  """Get active topics with limit"""
+  active_topics(limit: Int, channel_ids: [Snowflake]): [Topic]
+  """List activities (like create_message and create_topic for inbox)"""
+  activities(type: String!, before: Snowflake, user_id: Snowflake): [Activity]
+  """Get all friends for a user"""
+  all_friends: [Friend]
+  all_tournament_picks(league_id: Snowflake!): [TournamentPick]
+  """Get app info, like version, etc"""
+  app_info: Map
+  available_line_promotions(include_boosts: Boolean): [LinePromotion]
+  """List blocked users"""
+  blocked_users: [BlockedUser]
+  """List blocker IDs"""
+  blockers: [BlockedUser]
+  campaigns_by_email: [Map]
+  """List Channel bans"""
+  channel_bans(channel_id: Snowflake!, after_username: String): [ChannelBan]
+  """List members"""
+  channel_members(channel_id: Snowflake!, after_username: String): [ChannelUser]
+  """Get channel tags"""
+  channel_tags(channel_id: Snowflake!): [ChannelTag]
+  """List channels given channel_ids"""
+  channels(channel_ids: [Snowflake]): [Channel]
+  """List channels"""
+  channels_by_parent(parent_id: Snowflake!): [Channel]
+  """Channels for user"""
+  channels_for_user(user_id: Snowflake!): [Channel]
+  check_responsible_gaming_limits(limits_to_test: [CheckResponsibleGamingLimitInput]): List
+  """Codes by channel, league, or user_id"""
+  codes_by_type(type: String!, type_id: Snowflake!): [Code]
+  companies: [Company]
+  company_users(company_id: Snowflake!): [CompanyUser]
+  """Create read receipt"""
+  create_read_receipt(parent_type: String!, message_id: Snowflake, topic_id: Snowflake, channel_id: Snowflake, parent_id: Snowflake!): Boolean
+  """Get the current squad bank for a super squad"""
+  current_squad_bank(league_id: Snowflake!): FullRewardTracker
+  """Get the current weekly meter for a super squad"""
+  current_squad_weekly_meter(league_id: Snowflake!): FullRewardTracker
+  """Get a user's pending (not-yet-settled) parlays created during a derby's window. The derby must be currently active, the viewer must be participating in it, and the target user must be on the derby's published leaderboard (the top-ranked participants)."""
+  derby_user_parlays(offset: Int, limit: Int, user_id: Snowflake!, derby_id: String!, include_pick_counts: Boolean): [Parlay]
+  """Get a user's active CFTC positions opened during a derby's window. The derby must be currently active, the viewer must be participating in it, and the target user must be on the derby's published leaderboard (the top-ranked participants)."""
+  derby_user_positions(user_id: Snowflake!, currency_type: String = "USD", derby_id: String!): [Position]
+  """Get DM by ID"""
+  dm(dm_id: Snowflake!): Dm
+  """Get all users within a DM"""
+  dm_members(dm_id: Snowflake!): [DmUser]
+  download_cftc_daily_statement(month: Int!, year: Int!, day: Int!): String
+  download_cftc_monthly_statement(month: Int!, year: Int!): String
+  download_tax_form(tax_year: String!, form_type: String!): String
+  draft_autopickers(sport: String!, draft_id: Snowflake!): [Snowflake]
+  """fetch draft offers for a pick"""
+  draft_offers(sport: String!, draft_id: Snowflake!, pick_no: Int!): [DraftOffer]
+  """Fetch draft picks on board"""
+  draft_picks(draft_id: Snowflake!): [DraftPick]
+  """Fetch draft queue"""
+  draft_queue(draft_id: Snowflake!): [String]
+  """Drafts by league id"""
+  drafts_by_league_id(league_id: Snowflake!): [Draft]
+  event_queue_count(event_id: Snowflake!): Int
+  events(parent_type: String!, parent_id: Snowflake!): [Event]
+  """Existing contacts in app"""
+  existing_contacts(emails: [String], phone_numbers: [String]): [User]
+  find_friends(my_contact_info: ContactInfo!, contact_infos: [ContactInfo]): [DiscoveredContact]
+  """Grab friend by friend id"""
+  friend_by_id(friend_id: Snowflake!): Friend
+  """Get complete game stats for every player"""
+  game_stats(category: String!, order_by: String!, sport: String!, season_type: String!, season: String!, game_id: String!, positions: [String]): [Stat]
+  """Generate a transaction report for a user"""
+  generate_parlay_transactions_report(start_time: Int!, end_time: Int!, verification_code: String!, email_or_phone: String!): String
+  """Get active players by sport"""
+  get_active_players(sport: String!): [Player]
+  """Get user async bundles"""
+  get_async_bundles: [String]
+  """Code"""
+  get_code(code: String!): Code
+  get_daily_draft_contest(contest_id: Snowflake!): DailyDraftContest
+  get_daily_draft_team(team_id: Snowflake!): DailyDraftTeam
+  get_daily_draft_teams_by_draft(draft_id: Snowflake!): [DailyDraftTeam]
+  get_dismissals: Map
+  """Grab DM if it exists based on member_ids provided, null if not"""
+  get_dm_by_members(members: [Snowflake]): Dm
+  """Get a DM member"""
+  get_dm_settings(dm_id: Snowflake!): DmUser
+  """Fetch a draft"""
+  get_draft(sport: String!, draft_id: Snowflake!): Draft
+  """Get favorite teams for a user. If no user_id is provided, we use the current user"""
+  get_favorite_teams(user_id: Snowflake, sport: String): [Team]
+  get_featured_mascots: [ItemType]
+  """List of user's user pools that have not been graded."""
+  get_in_progress_user_pools(offset: Int, limit: Int): [UserPool]
+  """List a user's leagues"""
+  get_league(league_id: Snowflake!): League
+  """Get manual league history"""
+  get_league_manual_history(league_id: Snowflake!): [LeagueManualHistory]
+  get_matchmaking_league(league_id: Snowflake!): MatchmakingLobby
+  get_matchmaking_league_activity(league_id: Snowflake!): MatchmakingLeagueActivity
+  get_matchmaking_user(user_id: Snowflake!, game_bucket: String!, game: String!): MatchmakingUser
+  """Get onboarding rewards state"""
+  get_onboarding_rewards(sport: String!): OnboardingReward
+  get_pickem_leg(league_id: String!, roster_id: Int!, leg_id: String!): PickemLeg
+  get_pickem_legs(league_id: String!, roster_id: Int!): [PickemLeg]
+  get_pickem_picks_for_league(league_id: String!, leg_id: String!, include_tiebreaker: Boolean): Map
+  get_pickem_scoring_settings(league_id: Snowflake!): Map
+  """Get a player"""
+  get_player(sport: String!, player_id: String!): Player
+  """Get player news"""
+  get_player_news(limit: Int, sport: String!, player_id: String!): [PlayerNews]
+  get_player_news_by_id(source: String!, sport: String!, player_id: String!, source_key: String!): PlayerNews
+  """Get player season outlook"""
+  get_player_outlook(sport: String!, season: String!, player_id: String!): PlayerNews
+  """Player stats for season or game (if game_id, week, or date are not provided, we use season stats)"""
+  get_player_stats(category: String!, week: Int, sport: String!, season_type: String!, season: String!, player_id: String!, game_id: String): [Stat]
+  """Get a poll by id"""
+  get_poll(poll_id: Snowflake!): Poll
+  """Load a user's promos page"""
+  get_promos_page(flags: Map): PromoPage
+  """Get a list of promos shared with this user"""
+  get_promos_shared_to_you: [SharedPromo]
+  """Get a quest by id for the authenticated user"""
+  get_quest(quest_id: String!): UserQuest
+  get_referral_promo_code: String
+  get_responsible_gaming_limit_identifiers: [String]
+  """Get a single team"""
+  get_team(sport: String!, team: String!): Team
+  """Get user draft settings"""
+  get_user_draft_settings(draft_id: String!): UserDraft
+  get_user_matchmaking_preferences: [MatchmakingUser]
+  get_user_pool_by_id(pool_id: Snowflake): UserPool
+  """List of user's user pools"""
+  get_user_pools(offset: Int, status: [String], limit: Int, sport: String, pool_type: String): [UserPool]
+  give_get_referral_claims: [Map]
+  """Inbound requests (someone inviting me to connect as a friend or inviting me to DM)"""
+  inbound_requests(request_type: String!): [Request]
+  is_eligible_for_promo(location: Location, league_id: Snowflake, promo_id: String!): Boolean
+  """A query to check if a this user is a friend or not"""
+  is_friend(friend_id: Snowflake!): Boolean
+  """Is user subscribed to this ID?"""
+  is_subscribed(type_id: Snowflake!): Boolean
+  item_types: [ItemType]
+  """Get latest topics with limit"""
+  latest_topics(limit: Int, channel_ids: [Snowflake]): [Topic]
+  """Get active payout polls for a league"""
+  league_dues_active_payout_polls(league_id: Snowflake!): [LeagueDuesPayoutPoll]
+  """Get current dues balance for a league"""
+  league_dues_balance(league_id: Snowflake!): Map
+  """Get league dues config"""
+  league_dues_config(league_id: Snowflake!): LeagueDuesConfig
+  """Get dues owed breakdown by roster"""
+  league_dues_owed_by_roster(league_id: Snowflake!): [LeagueDuesRosterOwed]
+  """Get payment methods eligible for league dues"""
+  league_dues_payment_methods(include_venmo: Boolean = false, include_cards: Boolean = false, include_apple_pay: Boolean = false): [LeagueDuesPaymentMethod]
+  """Get a single payout config"""
+  league_dues_payout_config(league_id: Snowflake!, payout_config_id: Snowflake!): LeagueDuesPayoutConfig
+  """Get all payout configs for a league"""
+  league_dues_payout_configs(status: String, league_id: Snowflake!): [LeagueDuesPayoutConfig]
+  """Get a single payout plan"""
+  league_dues_payout_plan(league_id: Snowflake!, payout_config_id: Snowflake!, payout_plan_id: String!): LeagueDuesPayoutPlan
+  """Get payout plans for a league"""
+  league_dues_payout_plans(statuses: [String], league_id: Snowflake!, payout_config_id: Snowflake): [LeagueDuesPayoutPlan]
+  """Get league dues transactions"""
+  league_dues_transactions(filter: LeagueDuesTransactionFilterInput, league_id: Snowflake!): [LeagueDuesTransaction]
+  """Get league dues user"""
+  league_dues_user(user_id: Snowflake!, league_id: Snowflake!): LeagueDuesUser
+  """Get league dues users"""
+  league_dues_users(league_id: Snowflake!): LeagueDueUsersWithHash
+  """Get event logs for a league"""
+  league_event_logs(limit: Int, league_id: Snowflake!, before_log_id: Snowflake, event_types: [String]): [LeagueEventLog]
+  league_groups(company_id: Snowflake!, sport: String!, season_type: String!, season: String!): [LeagueGroup]
+  """Get league note"""
+  league_note(league_id: Snowflake!): LeagueNote
+  league_parlays(offset: Int, limit: Int, league_id: Snowflake, include_pick_counts: Boolean, status_filter: [String], user_id_filter: [Snowflake], filter_self: Boolean): [Parlay]
+  """List league players who have metadata"""
+  league_players(league_id: Snowflake!): [LeaguePlayer]
+  """Get a bracket"""
+  league_playoff_bracket(league_id: Snowflake!): [Map]
+  """Get a loser bracket"""
+  league_playoff_loser_bracket(league_id: Snowflake!): [Map]
+  """List rosters in a league"""
+  league_rosters(league_id: Snowflake!): [Roster]
+  league_sync_list_leagues(cookie: String, provider: String!, s2: String, swid: String): [Map]
+  """List all transactions in a leg"""
+  league_transactions(status: String, type: String, limit: Int, leg: Int, league_id: Snowflake!, roster_id: Int): [LeagueTransaction]
+  """League transactions by player and league"""
+  league_transactions_by_player(offset: Int, limit: Int, player_id: String!, league_id: Snowflake!): [LeagueTransaction]
+  """List league transactions by status"""
+  league_transactions_by_status(status: String!, leg: Int!, league_id: Snowflake!): [LeagueTransaction]
+  """List filtered transactions"""
+  league_transactions_filtered(limit: Int, league_id: Snowflake!, type_filters: [String], status_filters: [String], leg_filters: [Int], roster_id_filters: [Int]): [LeagueTransaction]
+  """Fetch a league user"""
+  league_user(league_id: Snowflake!): LeagueUser
+  """Fetch league_user objects by user"""
+  league_user_by_user(sport: String!, season_type: String!, season: String!): [LeagueUser]
+  """List a league's users"""
+  league_users(league_id: Snowflake!): [LeagueUser]
+  """Get all permanent metadata for users within a single league"""
+  league_users_metadata(league_id: Snowflake!): [Map]
+  """List leagues by group"""
+  leagues_by_group(limit: Int, group_id: Snowflake!): [League]
+  """List all user legal agreement types"""
+  legal_agreements: [String]
+  """Get all (non-personalized) active promos"""
+  list_all_active_promos: [Promo]
+  """Get promos eligible for user"""
+  list_eligible_promos(flags: Map, location: Location, user_id: Snowflake!): [Promo]
+  list_poll_votes(limit: Int, poll_id: Snowflake!): [PollVote]
+  """Get promo claims by type for user"""
+  list_promo_claims_by_type(user_id: Snowflake!, promo_type: String!): [PromoClaim]
+  """Get (non-personalized) promos by type"""
+  list_promos_by_type(type: String!): [Promo]
+  """Login"""
+  login(password: String, passkey: PublicKeyCredentialInput, email_or_phone_or_username: String, captcha: String, passkey_conversation_id: String): User
+  """Provide a potential username, email, or phone num, and get an avatar_url + if user has password.  This is for login screen"""
+  login_context_by_email_or_phone_or_username(email_or_phone_or_username: String!): Map
+  """Mark mention as read"""
+  mark_mention_as_read(message_id: Snowflake!): Boolean
+  """Matchup Legs for round"""
+  matchup_legs(round: Int!, league_id: Snowflake!): [MatchupLeg]
+  """Matchup Legs for round - without context or players etc - fast query - don't overwrite reducer version"""
+  matchup_legs_raw(round: Int!, league_id: Snowflake!): [MatchupLeg]
+  """Related matchup Legs for a roster (aka schedule)"""
+  matchup_legs_related_to_roster(league_id: Snowflake!, roster_id: Int!, start_round: Int!, end_round: Int!): [MatchupLeg]
+  """Get info about myself"""
+  me: User
+  """List mentions of you, reverse chronological order"""
+  mentions(before: Snowflake, unread: Boolean): [Mention]
+  message(message_id: Snowflake!, parent_id: Snowflake!): Message
+  """Get messages, order_by 'asc' or 'desc', before 'message_id'"""
+  messages(before: Snowflake, order_by: String = "desc", parent_id: Snowflake!, show_hidden: Boolean = false): [Message]
+  """Get messages sorted by number reactions"""
+  messages_by_reaction(limit: Int, parent_id: Snowflake!, reaction: String!): [Message]
+  metadata(type: String!, key: String!): Metadata
+  """Mutual Friends"""
+  mutual_friends(friend_id: Snowflake!): [Friend]
+  my_active_derbys: [DerbyUser]
+  my_active_positions(currency_type: String = "USD"): [Position]
+  my_balances: Map
+  """Channels that I'm banned from"""
+  my_channel_bans(ban_id: String!): [ChannelBan]
+  """Get channels for currently logged in user"""
+  my_channels: [Channel]
+  my_closed_positions(offset: Int = 0, limit: Int = 25, currency_type: String = "USD"): [Position]
+  my_currencies(wallet_type: String, withdrawable_only: Boolean): Map
+  my_currencies_and_transactions(wallet_type: String, transactions_limit: Int, transactions_offset: Int): CurrenciesAndTransactions
+  my_currencies_detailed(wallet_type: String): Map
+  my_currency_transaction_by_ref_ids(reference_type: String, reference_action: String, reference_ids: [String]): CurrencyTransaction
+  my_currency_transaction_by_reference(reference_type: String, reference_action: String, reference_id: String): CurrencyTransaction
+  my_currency_transactions(offset: Int, status: String, limit: Int, wallet_type: String, reference_action: String): [CurrencyTransaction]
+  """Get the current user's derby prizes, most recent first"""
+  my_derby_prizes: [UserDerbyPrize]
+  """Get a list of DMs for a particular user, with ability to do before query"""
+  my_dms(limit: Int, unread: Boolean): [Dm]
+  my_events(type: String!): [Event]
+  """Get friends for a user"""
+  my_friends(limit: Int, after_username: String): [Friend]
+  my_ip_location: IpLocation
+  my_items: [Item]
+  """List a user's leagues"""
+  my_leagues(sport: String, season_type: String, season: String, exclude_previous: Boolean = true, exclude_archived: Boolean = true): [League]
+  my_orders(offset: Int = 0, filter: ContractOrderFilter, limit: Int = 25): [ContractOrder]
+  my_parlays(offset: Int, limit: Int, league_id: Snowflake, include_pick_counts: Boolean, status_filter: [String]): [Parlay]
+  my_passkeys: [Passkey]
+  my_payment_methods(wallet_type: String): [PaymentMethod]
+  """Get picks settings for a user"""
+  my_picks_init: Map
+  """All preferences for logged in user"""
+  my_preferences: [Preference]
+  my_profile: UserProfile
+  my_purchasable_mascots: [ItemType]
+  my_purchases: [Purchase]
+  my_squad_parlays(limit: Int, include_pick_counts: Boolean): [Parlay]
+  """Get a summary of a user's winnings."""
+  my_winnings: Winnings
+  num_pending_parlays: Int
+  """Outbound requests (Friend request invites I sent)"""
+  outbound_requests(request_type: String!): [Request]
+  """List leagues for which the specified user is a owner(commish)"""
+  owned_leagues(user_id: Snowflake!, sport: String!, season_type: String!, season: String!): [League]
+  """Get single parlay by parlay_id"""
+  parlay(parlay_id: Snowflake!, include_pick_counts: Boolean): Parlay
+  """Get pinned messages for channel"""
+  pinned_messages(parent_id: Snowflake!): [Message]
+  """Get pinned topics for channel"""
+  pinned_topics(channel_id: Snowflake!): [Topic]
+  player_performance_topic(sport: String!, season_type: String!, season: String!, player_id: String!, game_id: String!): Topic
+  """Plays by Week, Date, or Game ID"""
+  plays(date: String, week: Int, sport: String!, season_type: String!, season: String!, game_id: String): [Play]
+  """Preferences for User / Channel / League"""
+  preferences_for_type_id(type_id: Snowflake!): [Preference]
+  """Get the previous squad bank for a super squad"""
+  previous_squad_bank(league_id: Snowflake!): FullRewardTracker
+  """Get the previous weekly meter for a super squad"""
+  previous_squad_weekly_meter(league_id: Snowflake!): FullRewardTracker
+  """Get promo by ID"""
+  promo_by_id(promo_id: String!): Promo
+  promo_transactions_by_parent_reference(reference_type: String, reference_action: String, reference_id: String): [CurrencyTransaction]
+  purchasable_item_refresh: Map
+  """Get recently pushed topics for channel"""
+  pushed_topics(channel_id: Snowflake!): [Topic]
+  """Get reactions of a specific type for a specific message"""
+  reactions(message_id: Snowflake!, parent_id: Snowflake!, reaction: String!): [Reaction]
+  """List read receipts for any DM, League, or Draft (doesn't work for channels/topics as they are partitioned differently)"""
+  read_receipts(parent_type: String!, parent_id: Snowflake!): [ReadReceipt]
+  """Returns a list of info about recent squad banks for a super squad"""
+  recent_squad_banks(league_id: Snowflake!): [RewardTrackerInfo]
+  """Returns a list of info about recent weekly meters for a super squad"""
+  recent_weekly_meters(league_id: Snowflake!): [RewardTrackerInfo]
+  """Get recently contacted friends"""
+  recently_contacted_friends: [Friend]
+  """Recommended Categorized Channels"""
+  recommended_categorized_channels: List
+  """Recommended channels"""
+  recommended_channels(limit: Int): [Channel]
+  """Requests for a type (like who's been invited to a group DM?)"""
+  requests(type_id: Snowflake!, request_type: String!): [Request]
+  """Get all roles for a given channel or league"""
+  roles_by_type(type_id: Snowflake!): [Role]
+  """Fetch picks that were traded"""
+  roster_draft_picks(season: String, league_id: Snowflake!): [RosterDraftPick]
+  """Fetch picks that were traded for a completed league draft or mock draft"""
+  roster_draft_picks_by_draft(draft_id: Snowflake!): [RosterDraftPick]
+  """Fetch picks that were traded owned by a specific player"""
+  roster_draft_picks_by_owner(league_id: Snowflake!, owner_roster_id: Snowflake!): [RosterDraftPick]
+  """Get roster standings for league and round"""
+  roster_standings(round: Int!, league_id: Snowflake!): [RosterStanding]
+  """List rosters owned by a user"""
+  rosters_by_user(user_id: Snowflake!, sport: String!, season_type: String!, season: String!): [Roster]
+  """Scores"""
+  scores(date: String, week: Int, sport: String!, season_type: String!, season: String!, game_id: String): [Score]
+  """Search banned users within a channel"""
+  search_channel_bans(prefix: String!, channel_id: Snowflake!): [ChannelBan]
+  """Search users within a channel"""
+  search_channel_users(prefix: String!, channel_id: Snowflake!): [ChannelUser]
+  """Search user related items like leagues, leaguemates, dms, and people in dms"""
+  search_dms(term: String!): [Dm]
+  """Search user related items like leagues, leaguemates, dms, and people in dms"""
+  search_leagues(term: String!): [League]
+  search_matchmaking_league_users(size: Int, from: Int, league_id: Snowflake!): [MatchmakingUser]
+  search_matchmaking_leagues(size: Int, tags: Map, from: Int, sport: String!, season_type: String!, season: String!, custom_tags: [String], commitment_high: Float, commitment_low: Float, player_count: [Int]): [MatchmakingLobby]
+  """Search Players by Sport"""
+  search_players(prefix: String!, limit: Int, sport: String!): [Player]
+  """Search for players in Text"""
+  search_players_in_text(text: String!, sport: String!): Map
+  """Search users by username"""
+  search_users(prefix: String!): [User]
+  """Get complete season stats for every player"""
+  season_stats(category: String!, order_by: String!, sport: String!, season_type: String!, season: String!, positions: [String]): [Stat]
+  """Get sport info"""
+  sport_info(sport: String!): Map
+  """Get a squad bank for a super squad by ID"""
+  squad_bank_by_id(league_id: Snowflake!, reward_tracker_id: Snowflake!): FullRewardTracker
+  """Stats for multiple players in a week"""
+  stats_for_players_in_week(category: String!, week: Int!, sport: String!, season_type: String!, season: String!, player_ids: [String]): [Stat]
+  """Suggest an available username based on an email address"""
+  suggest_username(email: String!): String
+  sweepstakes_entries_count_today: Int
+  sweepstakes_entries_count_total: Int
+  tax_forms: Map
+  """Get Teams by Sport"""
+  teams(sport: String!): [Team]
+  """Get the top historical squad banks for a super squad bank"""
+  top_squad_banks(league_id: Snowflake!, num_banks: Int!): [FullRewardTracker]
+  """Picks Top Tab Content Groups"""
+  top_tab_content(version: String!, eg: String, ftfe: Boolean): [TopTabContentGroup]
+  """Get a specific topic"""
+  topic(topic_id: Snowflake!, channel_id: Snowflake!): Topic
+  """My topic feed"""
+  topic_feed(limit: Int, before: Snowflake, channel_ids: [Snowflake]): [Topic]
+  """Get topics, order_by 'last_created' or 'last_messaged', before 'topic_id'"""
+  topics(before: Snowflake, order_by: String = "last_created", channel_tags: [String], channel_id: Snowflake!, show_hidden: Boolean = false, show_shadowed: Boolean = false): [Topic]
+  tournament_picks(round: Int, league_id: Snowflake!, roster_id: Int): [TournamentPick]
+  """Get trending channel topics with limit"""
+  trending_channel_topics(limit: Int, channel_id: Snowflake!): [Topic]
+  """Trending channels"""
+  trending_channels(limit: Int): [Channel]
+  """Trending players"""
+  trending_players(sort: String!, sport: String!): [Player]
+  """Get trending topics with limit"""
+  trending_topics(limit: Int, channel_ids: [Snowflake]): [Topic]
+  """Get user by userId"""
+  user(user_id: Snowflake!): User
+  """Get user by email, phone, or username"""
+  user_by_email_phone_or_username(email_or_phone_or_username: String!): User
+  """list user drafts for a sport, season_type, season"""
+  user_drafts(before: Snowflake, sport: String!, season_type: String!, season: String!): [UserDraft]
+  """list user drafts by status, like in_progress drafts"""
+  user_drafts_by_draft(draft_id: Snowflake!): [UserDraft]
+  """list user drafts by status, like in_progress drafts"""
+  user_drafts_by_league_mock(league_id: Snowflake!): [UserDraft]
+  """list user drafts by status, like in_progress drafts"""
+  user_drafts_by_status(status: String!, before: Snowflake, sport: String!, season_type: String!, season: String!): [UserDraft]
+  """All roles for a user given a channel / league / group"""
+  user_roles_for_type(user_id: Snowflake, type_id: Snowflake!): [Role]
+  """Get a user roster"""
+  user_roster(user_id: Snowflake!, sport: String!, season_type: String!, season: String!, roster_id: Snowflake!): [UserRoster]
+  """Get a list of user rosters"""
+  user_rosters(user_id: Snowflake!, sport: String!, season_type: String!, season: String!): [UserRoster]
+  """Load a shared promo"""
+  view_shared_promo(user_id: Snowflake!, share_id: Snowflake!): SharedPromo
+  """Watched players list"""
+  watched_players(sport: String!, season_type: String, season: String): [Player]
+  """Get a weekly meter for a super squad by ID"""
+  weekly_meter_by_id(league_id: Snowflake!, reward_tracker_id: Snowflake!): FullRewardTracker
+  """Get complete weekly stats for every player"""
+  weekly_stats(category: String!, week: Int!, order_by: String!, sport: String!, season_type: String!, season: String!, positions: [String]): [Stat]
+}
+
+type Roster {
+  co_owners: SnowflakeSet
+  keepers: Set
+  league_id: Snowflake
+  metadata: Map
+  owner_id: Snowflake
+  player_map: Map
+  players: Set
+  reserve: Set
+  roster_id: Int
+  settings: Map
+  starters: List
+  taxi: Set
+}
+
+type RosterDraftPick {
+  league_id: Snowflake
+  owner_id: Int
+  previous_owner_id: Int
+  roster_id: Int
+  round: Int
+  season: String
+}
+
+type RosterStanding {
+  correct_bans: Int
+  correct_picks: Int
+  league_id: Snowflake
+  losses: Int
+  points: Float
+  points_against: Float
+  rank: Int
+  record: String
+  roster_id: Int
+  round: Int
+  ties: Int
+  total_bans: Int
+  total_picks: Int
+  wins: Int
+}
+
+type Score {
+  date: String
+  game_id: String
+  metadata: Json
+  reactions: Map
+  season: String
+  season_type: String
+  sport: String
+  start_time: Int
+  status: String
+  total_comments: Int
+  total_reactions: Int
+  total_views: Int
+  updated_at: Int
+  week: Int
+}
+
+type SharedPromo {
+  amount: Float
+  claimer_user_id: Snowflake
+  claimer_username: String
+  created: Int
+  expires_at: Int
+  giftee_user_id: Snowflake
+  promo_id: String
+  promo_metadata: Map
+  promo_type: String
+  share_id: Snowflake
+  status: String
+  user_id: Snowflake
+  username: String
+}
+
+type Stat {
+  category: String
+  company: String
+  date: String
+  game_id: String
+  opponent: String
+  player: Map
+  player_id: String
+  season: String
+  season_type: String
+  sport: String
+  stats: Map
+  team: String
+  updated_at: Int
+  week: Int
+}
+
+type Team {
+  active: Boolean
+  aliases: Map
+  metadata: Map
+  name: String
+  sport: String
+  team: String
+}
+
+type TopTabContentGroup {
+  content: [Map]
+  content_type: String
+  key: String
+  name: String
+  sport: String
+}
+
+type Topic {
+  attachment: Json
+  author_avatar: String
+  author_display_name: String
+  author_id: Snowflake
+  author_is_bot: Boolean
+  channel_id: Snowflake
+  channel_tags: Set
+  client_id: String
+  created: Int
+  engagement_score: Int
+  hidden: Boolean
+  last_message_id: Snowflake
+  last_pinned_message_id: Snowflake
+  last_read_id: Snowflake
+  metadata: Map
+  num_messages: Int
+  num_viewers: Int
+  pinned: Boolean
+  player_tags: Set
+  pushed_by: Json
+  reactions: Map
+  score: Int
+  shadowed: Boolean
+  shard_max: Int
+  shard_min: Int
+  title: LocalizedString
+  title_map: LocalizedJson
+  top_message_id: Snowflake
+  topic_id: Snowflake
+  upvotes: Int
+  user_reactions: [TopicReaction]
+}
+
+type TopicReaction {
+  channel_id: Snowflake
+  reaction: String
+  reactor_avatar: String
+  reactor_display_name: String
+  reactor_id: Snowflake
+  reactor_is_bot: Boolean
+  topic_id: Snowflake
+}
+
+type TournamentPick {
+  game_id: String
+  league_id: Snowflake
+  points: Float
+  roster_id: Int
+  round: Int
+  team: String
+  team_bracket: String
+  team_seed: Int
+}
+
+type UpdateSquadBankGradingModeResult {
+  current_squad_bank_updated: Boolean
+  league: League
+}
+
+type User {
+  async_bundles: List
+  avatar: String
+  cookies: Int
+  created: Int
+  currencies: Map
+  data_updated: Map
+  deleted: Int
+  display_name: String
+  email: String
+  ip_city: String
+  ip_country_code: String
+  ip_region_codes: [String]
+  is_bot: Boolean
+  metadata: Json
+  notifications: Map
+  pending: Boolean
+  phone: String
+  picks: Map
+  real_name: String
+  solicitable: Boolean
+  summoner_name: String
+  summoner_region: String
+  token: String
+  user_id: Snowflake
+  username: String
+  verification: String
+}
+
+type UserDerbyPrize {
+  acknowledged_at: Int
+  created: Int
+  currency_type: String
+  derby_end_time: Int
+  derby_id: String
+  derby_name: String
+  derby_start_time: Int
+  metadata: Map
+  prize_amount: Float
+  rank: Int
+  score: Float
+  total_entrants: Int
+  type: String
+  user_id: Snowflake
+  winner_count: Int
+}
+
+type UserDraft {
+  allow_pn: Boolean
+  created: Int
+  draft_id: Snowflake
+  last_message_id: Snowflake
+  last_message_time: Int
+  last_picked: Int
+  last_read_id: Snowflake
+  league_id: Snowflake
+  mention_pn: Boolean
+  metadata: Map
+  season: String
+  season_type: String
+  settings: Map
+  sport: String
+  start_time: Int
+  status: String
+  type: String
+  user_avatar: String
+  user_display_name: String
+  user_id: Snowflake
+  user_is_bot: Boolean
+}
+
+type UserPlayoffStatus {
+  bracket: String
+  is_bye: Boolean
+  placement: Int
+  playing_for: Int
+  round: Int
+  seed_by_roster: Map
+}
+
+type UserPool {
+  created: Int
+  metadata: Map
+  pool_id: Snowflake
+  pool_type: String
+  sport: String
+  """["open", "drafting", "drafted_with_cpu", "complete", "canceled"]"""
+  status: String
+  user_id: Snowflake
+}
+
+type UserProfile {
+  address1: String
+  address2: String
+  cftc_questionnaire_answered: Boolean
+  city: String
+  country_code: String
+  date_of_birth: String
+  document_verification: Boolean
+  first_name: String
+  last_name: String
+  national_id4: String
+  national_id_verification: String
+  postal_code: String
+  region: String
+  user_id: String
+}
+
+type UserQuest {
+  created: Int
+  event: String
+  event_reqs: Map
+  expires_at: Int
+  promo: Map
+  quest_id: String
+  quest_reqs: Map
+  state: Map
+  status: String
+  user_id: Snowflake
+  version: String
+}
+
+type UserRoster {
+  metadata: Map
+  player_map: Map
+  players: Set
+  roster_id: Snowflake
+  roster_positions: List
+  scoring_settings: Map
+  season: String
+  season_type: String
+  settings: Map
+  sport: String
+  starters: List
+  user_id: Snowflake
+}
+
+type UserTipTransactionLog {
+  created: Int
+  currency_amount: Float
+  currency_type: String
+  metadata: Map
+  receiver_user_id: Snowflake
+  reference_action: String
+  reference_id: String
+  reference_type: String
+  sender_user_id: Snowflake
+}
+
+type Winnings {
+  contests_won: Int
+  money_won: Map
+}
+
+input AuthenticatorResponseInput {
+  public_key: String
+  signature: String
+  attestation_object: String
+  authenticator_data: String
+  client_data_json: String
+  public_key_algorithm: Int
+  transports: [String]
+  user_handle: String
+}
+
+input CheckResponsibleGamingLimitInput {
+  identifier: String
+  amount: Int
+  limit_scope: String
+}
+
+input ClientPossibleMultipliers {
+  lost0: String
+  lost1: String
+  lost2: String
+  team_pick_lost: String
+}
+
+input ContactInfo {
+  name: String
+  phone: String
+  email: String
+}
+
+input ContractOrderFilter {
+  status: String
+  event_id: Snowflake
+  market_id: Snowflake
+  order_type: String
+  end_date: Int
+  start_date: Int
+}
+
+input InputPickemPick {
+  """["win", "tie"]"""
+  outcome: String
+  team: String
+  game_id: String
+  updated_at: Int
+}
+
+input InputPickemTiebreaker {
+  type: String
+  value: Int
+  game_id: String
+}
+
+input LeagueDuesPayeeInput {
+  user_id: Snowflake!
+  rank: Int!
+}
+
+input LeagueDuesPayoutChangeInput {
+  payout_config_id: Snowflake!
+  payout_structure: Json!
+  payout_plan_id: String!
+  payees: [LeagueDuesPayeeInput]!
+}
+
+input LeagueDuesPayoutConfigInput {
+  status: String
+  review_window_hours: Int
+  payout_config_id: Snowflake
+  config_hash: String
+  """Last week of the regular season; required for end_of_week payout configs"""
+  max_week: Int
+  payout_criteria: String!
+  payout_interval: String!
+  """stringify JSON object, e.g. '{"1":100.0,"2":25.0,"3":10.0}'"""
+  payout_structure: Json!
+  governance: String
+  voting_threshold: Float
+}
+
+input LeagueDuesTransactionFilterInput {
+  """Filter transactions for a specific user."""
+  user_id: Snowflake
+  payout_config_id: Snowflake
+  transaction_type: String
+  target_season: String
+}
+
+input LeagueDuesUserInput {
+  user_id: Snowflake!
+  paid_status: String!
+}
+
+input Location {
+  country: String
+  region: String
+  latitude: Float
+  longitude: Float
+}
+
+input OfflineWithdrawalAchInfo {
+  account_number: String
+  bank_name: String
+  name_on_account: String
+  routing_number: String
+}
+
+input OfflineWithdrawalPaperCheckInfo {
+  state: String
+  zip: String
+  city: String
+  address1: String
+  address2: String
+}
+
+input PaymentMethodInput {
+  label: String
+  name: String
+  type: String
+  provider: String
+}
+
+input PlayoffMatchOverride {
+  match: Int!
+  round: Int!
+  team1: Int
+  team2: Int
+}
+
+input PublicKeyCredentialInput {
+  id: String
+  type: String
+  response: AuthenticatorResponseInput
+  authenticator_attachment: String
+  raw_id: String
+}
+
+input UserFlair {
+  subject_id: String
+  sport: String
+  subject_type: String
+}

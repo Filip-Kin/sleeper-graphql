@@ -1,0 +1,16 @@
+{
+  "name": "sleeper-graphql",
+  "version": "0.1.0",
+  "description": "Reference and typed client for Sleeper's undocumented GraphQL API",
+  "type": "module",
+  "private": true,
+  "main": "src/client.ts",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "bun x tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "typescript": "^5.6.0"
+  }
+}
