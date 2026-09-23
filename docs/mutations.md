@@ -52,7 +52,7 @@ roster_update_starters(league_id: Snowflake!, roster_id: Int!, starters: [String
 
 Server description: Roster update starters
 
-Status: **EXECUTED, succeeded**. `src/league/api.ts` `updateStarters()`; `lineup-set` rows (`set and verified`) 2026-09-06/07. Pass the full starters array in slot order; `0` is an empty slot.
+Status: **EXECUTED, succeeded, BUT NOT SUFFICIENT ON ITS OWN**. Changes the roster's `starters` array and nothing else. The app and the scorer read `matchup_legs[round].starters`, which this mutation never touches. Proved 2026-09-23 on the staging league: after this write the roster array changed and the current leg did not. A lineup set only this way looks right on every roster read-back and is not what plays. Pair it with `update_matchup_leg` (below) and verify by reading the leg. Pass the full starters array in slot order; `0` is an empty slot.
 
 
 ### `roster_update_reserve`
@@ -261,7 +261,7 @@ update_matchup_leg(round: Int!, leg: Int!, league_id: Snowflake!, roster_id: Int
 
 Server description: Update matchup leg
 
-Status: untested.
+Status: **EXECUTED, succeeded** 2026-09-23, staging and real league. This is the lineup write that counts: the leg is what the app shows and what scores. Read `leg` from `matchup_legs(round)` for your roster (equals the round in the regular season) and pass the full starters array in slot order. Writing the leg also updates the roster's `starters` array; the reverse (`roster_update_starters`) does not update the leg. `src/league/api.ts` `updateStarters()` in sleeper-coach does both and reads the leg back.
 
 
 ### `add_matchup_leg_pick`
